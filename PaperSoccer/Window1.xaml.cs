@@ -23,5 +23,15 @@ namespace PaperSoccer
         {
             InitializeComponent();
         }
+
+        private void PlayerNameChanged(object sender, TextChangedEventArgs e)
+        {
+           /* TextBox name = sender as TextBox;
+            if( name.Text != "" )
+            {
+                
+            }*/
+
+        }
     }
 }
