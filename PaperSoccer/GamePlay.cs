@@ -1,14 +1,19 @@
 ﻿namespace GameSettings
 {
-    enum GamePlay : ushort
+    enum GameState : ushort
     {
         NotStarted = 0,
-        Move,
-        Bounce,
+        Moving,
         EndedMove,
-        PositionConfirmed,
-        CanNotEndMove,
         Draw,
+        Player1Won,
+        Player2Won
+    }
+    enum MoveState : ushort
+    {
+        CanStopHere,
+        CanNotStopHere,
+        HasBounce,
         FinishedMove
     }
 }
