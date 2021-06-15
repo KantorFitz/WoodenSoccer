@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaperSoccer"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Ustawienia" Height="450" Width="800">
     <Grid>
-        
+        <Label Name="Player1" Margin="10,0,698,405">Gracz pierwszy</Label>
+        <StackPanel HorizontalAlignment="Left" Height="190" Margin="10,34,0,0" VerticalAlignment="Top" Width="218">
+            <Label>imię gracza:</Label>
+            <TextBox FontStyle="Normal" Foreground="#FFA1A200" >Podaj imię</TextBox>
+        </StackPanel>
     </Grid>
 </Window>
