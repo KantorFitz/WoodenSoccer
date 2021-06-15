@@ -1,16 +1,18 @@
-﻿<Window x:Class="PaperSoccer.Window1"
+﻿<Window x:Class="PaperSoccer.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaperSoccer"
         mc:Ignorable="d"
-        Title="Ustawienia" Height="450" Width="800">
+        Title="Ustawienia" Height="450" Width="800" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
-        <Label Name="Player1" Margin="10,0,698,405">Gracz pierwszy</Label>
+        <Label Name="Player1" Margin="10,0,572,405">Gracz pierwszy</Label>
         <StackPanel HorizontalAlignment="Left" Height="190" Margin="10,34,0,0" VerticalAlignment="Top" Width="218">
-            <Label>imię gracza:</Label>
-            <TextBox FontStyle="Normal" Foreground="#FFA1A200" >Podaj imię</TextBox>
+            <Label x:Name="lblPlayer1Name">imię gracza:</Label>
+            <TextBox x:Name="tbPlayer1EditName" FontStyle="Normal" Foreground="#FFA1A200" TextChanged="PlayerNameChanged" >Podaj imię</TextBox>
         </StackPanel>
+        <Button Content="Ok" HorizontalAlignment="Left" Height="45" Margin="159,333,0,0" VerticalAlignment="Top" Width="154" IsDefault="True"/>
+        <Button Content="Anuluj" HorizontalAlignment="Left" Height="45" Margin="440,333,0,0" VerticalAlignment="Top" Width="154" IsCancel="True"/>
     </Grid>
 </Window>

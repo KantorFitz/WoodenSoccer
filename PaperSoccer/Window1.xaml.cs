@@ -17,20 +17,20 @@ namespace PaperSoccer
     /// <summary>
     /// Logika interakcji dla klasy Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class SettingsWindow : Window
     {
-        public Window1()
+        public SettingsWindow()
         {
             InitializeComponent();
         }
 
         private void PlayerNameChanged(object sender, TextChangedEventArgs e)
         {
-           /* TextBox name = sender as TextBox;
+            TextBox name = sender as TextBox;
             if( name.Text != "" )
             {
                 
-            }*/
+            }
 
         }
     }

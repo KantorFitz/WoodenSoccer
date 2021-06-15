@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
-
+    
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,6 +25,14 @@ namespace PaperSoccer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow ustawienia = new();
+            DialogResult result = ustawienia.Show(); //TODO dialog system
+
+            
         }
     }
 }

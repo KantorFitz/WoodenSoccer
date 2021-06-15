@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="Settings" Content="Ustawienia" HorizontalAlignment="Left" Height="52" Margin="367,274,0,0" VerticalAlignment="Top" Width="120" Click="Settings_Click"/>
 
     </Grid>
 </Window>
