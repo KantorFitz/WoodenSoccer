@@ -29,10 +29,17 @@ namespace PaperSoccer
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            SettingsWindow ustawienia = new();
-            DialogResult result = ustawienia.Show(); //TODO dialog system
+            SettingsWindow settingsWindow = new SettingsWindow();
 
-            
+
+            if (settingsWindow.ShowDialog() == true)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

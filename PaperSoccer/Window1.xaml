@@ -5,14 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaperSoccer"
         mc:Ignorable="d"
-        Title="Ustawienia" Height="450" Width="800" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="Ustawienia" Height="450" Width="340" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
-        <Label Name="Player1" Margin="10,0,572,405">Gracz pierwszy</Label>
-        <StackPanel HorizontalAlignment="Left" Height="190" Margin="10,34,0,0" VerticalAlignment="Top" Width="218">
-            <Label x:Name="lblPlayer1Name">imię gracza:</Label>
-            <TextBox x:Name="tbPlayer1EditName" FontStyle="Normal" Foreground="#FFA1A200" TextChanged="PlayerNameChanged" >Podaj imię</TextBox>
+        <StackPanel VerticalAlignment="Top" Height="100">
+            <Border BorderThickness="3" BorderBrush="Black" Height="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Name="Player1" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Gracz pierwszy</Label>
+                    <Label x:Name="lblPlayer1Name" Content="imię gracza:" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbPlayer1Name" Foreground="BurlyWood" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus" Text="Podaj imię" Height="30" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Border>
         </StackPanel>
-        <Button Content="Ok" HorizontalAlignment="Left" Height="45" Margin="159,333,0,0" VerticalAlignment="Top" Width="154" IsDefault="True"/>
-        <Button Content="Anuluj" HorizontalAlignment="Left" Height="45" Margin="440,333,0,0" VerticalAlignment="Top" Width="154" IsCancel="True"/>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0, 105, 0, 0" Height="100">
+            <Border BorderThickness="3" BorderBrush="Black" Height="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Label Name="Player2" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Center">Gracz Drugi</Label>
+                    <Label VerticalAlignment="Top" HorizontalAlignment="Stretch">Imię gracza:</Label>
+                    <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="BurlyWood" Height="30" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus">Podaj imię</TextBox>
+                </StackPanel>                
+            </Border>            
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom" Height="100" Margin="0,200,0,0">
+            <Button Content="Ok" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <Button Content="Anuluj" Height="50" IsCancel="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+
     </Grid>
 </Window>
