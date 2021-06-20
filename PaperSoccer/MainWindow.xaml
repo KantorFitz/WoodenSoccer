@@ -8,8 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="Settings" Content="Ustawienia" HorizontalAlignment="Left" Height="52" Margin="524,341,0,0" VerticalAlignment="Top" Width="120" Click="Settings_Click"/>
-        <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Margin="470,94,0,0" VerticalAlignment="Top" Width="174"/>
-        <RadioButton Content="" Width="14" HorizontalAlignment="Left" Margin="44,82,0,0" VerticalAlignment="Top" Height="13"/>
 
 
     </Grid>

@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
-    /// <summary>
-    /// Logika interakcji dla klasy Window1.xaml
-    /// </summary>
     public partial class SettingsWindow : Window
     {
         private MainWindow mainForm = null;
@@ -30,11 +27,6 @@ namespace PaperSoccer
         {
             mainForm = sender as MainWindow;
             InitializeComponent();
-        }
-
-        private void PlayerNameChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void PlayerNameEdit_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -61,7 +53,6 @@ namespace PaperSoccer
         {
             mainForm.Player1Name = tbPlayer1Name.Text;
             mainForm.Player2Name = tbPlayer2Name.Text;
-            mainForm.lblTest.Content = "test";
             this.Close();
         }
     }
