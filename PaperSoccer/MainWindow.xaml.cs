@@ -15,13 +15,13 @@ using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
-    public class Coordinate
+    public class Coordinates
     {
         uint x;
         uint y;
 
-        public Coordinate() => (x, y) = (0, 0);
-        public Coordinate(uint X, uint Y) => (x, y) = (X, Y);
+        public Coordinates() => (x, y) = (0, 0);
+        public Coordinates(uint X, uint Y) => (x, y) = (X, Y);
         public uint X()
         {
             return x;
@@ -38,20 +38,24 @@ namespace PaperSoccer
         {
             this.y = y;
         }
+        public void setXY(uint X, uint Y) => (x, y) = (X, Y);
+        public Coordinates getXY(uint X, uint Y)
+        {
+            return this;
+        }
     }
 
-    public class Board
+    public class BoardClass
     {
-        public class Point : Coordinate
+        public class Point : Coordinates
         {
             public BoardSettings.BoardPoint pointType;
-            Coordinate coordinate;
-            public Point() { }
-            public Point(Coordinate coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
-
-
-
+            Coordinates coordinate;
+            public Point() => (pointType) = (BoardSettings.BoardPoint.Empty);
+            public Point(Coordinates coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
+            public Point(Coordinates coord) => (coordinate, pointType) = (coord, BoardSettings.BoardPoint.Empty);
         }
+        public List<List<Point>> Playground = new List<List<Point>>();
 
 
     }
@@ -77,6 +81,8 @@ namespace PaperSoccer
 
 
             settingsWindow.ShowDialog();
+
+            BoardClass test = new BoardClass();
 
             
 

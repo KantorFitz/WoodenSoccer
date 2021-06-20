@@ -12,7 +12,7 @@
                 <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Label Name="Player1" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Gracz pierwszy</Label>
                     <Label x:Name="lblPlayer1Name" Content="imię gracza:" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-                    <TextBox x:Name="tbPlayer1Name" Foreground="BurlyWood" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus" Text="Podaj imię" Height="30" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="tbPlayer1Name" Foreground="BurlyWood" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus" Text="Podaj imię" Height="30" VerticalContentAlignment="Center"/>
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -21,7 +21,7 @@
                 <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Label Name="Player2" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Center">Gracz Drugi</Label>
                     <Label VerticalAlignment="Top" HorizontalAlignment="Stretch">Imię gracza:</Label>
-                    <TextBox x:Name="tbPlayer2Name" HorizontalAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="BurlyWood" Height="30" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus">Podaj imię</TextBox>
+                    <TextBox x:Name="tbPlayer2Name" HorizontalAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="BurlyWood" Height="30" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus">Podaj imię</TextBox>
                 </StackPanel>                
             </Border>            
         </StackPanel>

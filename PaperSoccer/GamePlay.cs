@@ -32,6 +32,7 @@ namespace PaperSoccer.BoardSettings
     public enum BoardPoint : ushort
     {
         Empty,
+        Outer,
         Occupied,
         BorderTop,
         BorderBottom,
