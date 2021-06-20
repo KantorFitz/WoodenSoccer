@@ -1,4 +1,4 @@
-﻿namespace GameSettings
+﻿namespace PaperSoccer.GameSettings
 {
     enum GameState : ushort
     {
@@ -17,28 +17,29 @@
     {
         Player1,
         Player2
-    }
+    }        
+}
 
-    namespace Board
+namespace PaperSoccer.BoardSettings
+{
+    public enum PlayerState : ushort
     {
-        enum PlayerState : ushort
-        {
-            CanStopHere,
-            CanNotStopHere,
-            HasBounce,
-            FinishedMove
-        }
-        enum BoardPoint : ushort
-        {
-            Empty,
-            Occupied,
-            BorderTop,
-            BorderBottom,
-            BorderLeft,
-            BorderRight,
-            Player1Goal,
-            Player2Goal,
-            Ball
-        }
-    }    
+        CanStopHere,
+        CanNotStopHere,
+        HasBounce,
+        FinishedMove
+    }
+    public enum BoardPoint : ushort
+    {
+        Empty,
+        Occupied,
+        BorderTop,
+        BorderBottom,
+        BorderLeft,
+        BorderRight,
+        Player1Goal,
+        Player2Goal,
+        OldBall,
+        Ball
+    }
 }

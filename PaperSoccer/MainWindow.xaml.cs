@@ -15,25 +15,45 @@ using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
-    public class Point
+    public class Coordinate
     {
-        Point()
+        uint x;
+        uint y;
+
+        public Coordinate() => (x, y) = (0, 0);
+        public Coordinate(uint X, uint Y) => (x, y) = (X, Y);
+        public uint X()
         {
-            x = 0;
-            y = 0;
+            return x;
         }
-        Point(uint X, uint Y)
+        public void X(uint x)
         {
-            x = X;
-            y = Y;
+            this.x = x;
         }
-        private uint x { get; set; }
-        private uint y { get; set; }
+        public uint Y()
+        {
+            return y;
+        }
+        public void Y(uint y)
+        {
+            this.y = y;
+        }
     }
 
     public class Board
     {
-        //TODO
+        public class Point : Coordinate
+        {
+            public BoardSettings.BoardPoint pointType;
+            Coordinate coordinate;
+            public Point() { }
+            public Point(Coordinate coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
+
+
+
+        }
+
+
     }
 
 
