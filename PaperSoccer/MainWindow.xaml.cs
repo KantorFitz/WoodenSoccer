@@ -15,13 +15,31 @@ using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
-    
+    public class Point
+    {
+        Point()
+        {
+            x = 0;
+            y = 0;
+        }
+        Point(uint X, uint Y)
+        {
+            x = X;
+            y = Y;
+        }
+        private uint x { get; set; }
+        private uint y { get; set; }
+    }
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    public class Board
+    {
+        //TODO
+    }
+
+
     public partial class MainWindow : Window
     {
+        
         private string player1Name = "";
         private string player2Name = "";
 
