@@ -19,8 +19,16 @@ namespace PaperSoccer
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        private MainWindow mainForm = null;
+
         public SettingsWindow()
         {
+            InitializeComponent();
+        }
+
+        public SettingsWindow(object sender)
+        {
+            mainForm = sender as MainWindow;
             InitializeComponent();
         }
 
@@ -49,5 +57,12 @@ namespace PaperSoccer
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainForm.Player1Name = tbPlayer1Name.Text;
+            mainForm.Player2Name = tbPlayer2Name.Text;
+            mainForm.lblTest.Content = "test";
+            this.Close();
+        }
     }
 }

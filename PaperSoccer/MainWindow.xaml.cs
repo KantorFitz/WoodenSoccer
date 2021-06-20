@@ -22,6 +22,12 @@ namespace PaperSoccer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string player1Name = "";
+        private string player2Name = "";
+
+        public string Player1Name { get; set; }
+        public string Player2Name { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,17 +35,13 @@ namespace PaperSoccer
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow(this);
 
 
-            if (settingsWindow.ShowDialog() == true)
-            {
+            settingsWindow.ShowDialog();
 
-            }
-            else
-            {
+            
 
-            }
         }
     }
 }

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaperSoccer"
         mc:Ignorable="d"
-        Title="Ustawienia" Height="450" Width="340" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid>
+        Title="Ustawienia" Height="450" Width="374" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid MinWidth="300">
         <StackPanel VerticalAlignment="Top" Height="100">
             <Border BorderThickness="3" BorderBrush="Black" Height="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -21,13 +21,13 @@
                 <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Label Name="Player2" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Center">Gracz Drugi</Label>
                     <Label VerticalAlignment="Top" HorizontalAlignment="Stretch">Imię gracza:</Label>
-                    <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="BurlyWood" Height="30" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus">Podaj imię</TextBox>
+                    <TextBox x:Name="tbPlayer2Name" HorizontalAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="BurlyWood" Height="30" TextChanged="PlayerNameChanged" GotKeyboardFocus="PlayerNameEdit_GotKeyboardFocus" LostKeyboardFocus="PlayerNameEdit_LostKeyboardFocus">Podaj imię</TextBox>
                 </StackPanel>                
             </Border>            
         </StackPanel>
 
         <StackPanel VerticalAlignment="Bottom" Height="100" Margin="0,200,0,0">
-            <Button Content="Ok" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <Button Content="Ok" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" IsDefault="True" Click="Button_Click"/>
             <Button Content="Anuluj" Height="50" IsCancel="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
         </StackPanel>
 
