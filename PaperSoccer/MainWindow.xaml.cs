@@ -73,31 +73,31 @@ namespace PaperSoccer
             public Point(Coordinates coord) => (coordinate, pointType) = (coord, BoardSettings.BoardPoint.Empty);
         }
 
-        private UInt16 playgroundWidth;
-        private UInt16 playgroundHeight;
+        private UInt16 pgWidth;
+        private UInt16 pgHeight;
 
         /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
         public UInt16 PlaygroundWidth
         {
-            get { return playgroundWidth; }
+            get { return pgWidth; }
             set
             {
                 if (value >= 5)
                 {
                     if (value % 2 == 0)
                     {
-                        playgroundWidth = (ushort)(value + 1);
+                        pgWidth = (ushort)(value + 1);
                     }
                     else
                     {
-                        playgroundWidth = (ushort)value;
+                        pgWidth = (ushort)value;
                     }                    
                 }
                 else
                 {
-                    playgroundWidth = 5;
+                    pgWidth = 5;
                 }                
             }
         }
@@ -107,23 +107,23 @@ namespace PaperSoccer
         /// </summary>
         public UInt16 PlaygroundHeight
         {
-            get { return playgroundHeight; }
+            get { return pgHeight; }
             set
             {
                 if (value >= 7)
                 {
                     if (value % 2 == 0)
                     {
-                        playgroundHeight = (ushort)(value + 1);
+                        pgHeight = (ushort)(value + 1);
                     }
                     else
                     {
-                        playgroundHeight = (ushort)value;
+                        pgHeight = (ushort)value;
                     }
                 }
                 else
                 {
-                    playgroundHeight = 7;
+                    pgHeight = 7;
                 }
             }
         }
@@ -138,42 +138,53 @@ namespace PaperSoccer
             playground.Clear();
             PlaygroundWidth = width;
             PlaygroundHeight = height;
-            BoardSettings.BoardPoint pt = BoardSettings.BoardPoint.Empty;
-            UInt16 halfWidth = (UInt16)(playgroundWidth / 2);
 
-
-            for (UInt16 x = 0; x <= PlaygroundWidth - 1; x++)
+            // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
+            for (UInt16 x = 0; x < PlaygroundWidth; x++)
             {
                 playground.Add(new List<Point>());
                 var pgx = playground[x];
-                for (UInt16 y = 0; y <= PlaygroundHeight - 1; y++)
+                for (UInt16 y = 0; y < PlaygroundHeight; y++)
                 {
-                    // Wypełnienie lewej i prawej krawędzi boiska
-                    if (x == 0 || x == PlaygroundWidth - 1)
+                    pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));                    
+                }
+            }
+
+            // Wypełniamy obramowanie boiska polem Border; -- warstwa druga
+            for (UInt16 x = 0; x < PlaygroundWidth; x++)
+            {
+                for (UInt16 y = 0; y < PlaygroundHeight; y++)
+                {
+                    if (((x == 0) || (x == PlaygroundWidth - 1)) && (y > 0 && y < PlaygroundHeight - 1))
                     {
-                        if (y > 0 && y < PlaygroundHeight - 1) 
-                        {
-                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Border));
-                        }
-                        else
-                        {
-                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));
-                        }
+                        playground[x][y].pointType = BoardSettings.BoardPoint.Border; // ||
                     }
-                    else // wypełnienie pozostałych części
-                    {   // jeżeli to wiersz pierwszy i przedostatni to jest to krawędź boiska
-                        if (y == 1 || y == PlaygroundHeight - 2)
-                        {   //jeżeli to kolumna z bramką, to nie nie nie ma tutaj krawędzi
-                            if ((x <= halfWidth - 1) || (x >= halfWidth + 1))
-                            {
-                                pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Border));
-                            }
-                        }
-                        else
-                        {   // W przeciwnym wypadku jest to wewnątrz boiska
-                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Empty));
-                        }
+                    if (y == 1 || y == PlaygroundHeight - 2)
+                    {
+                        playground[x][y].pointType = BoardSettings.BoardPoint.Border; // =
                     }
+                }
+            }
+
+            // Wypełniamy środek boiska polem Empty -- warstwa trzecia
+            for (UInt16 x = 1; x < PlaygroundWidth - 1; x++)
+            {
+                for (UInt16 y = 2; y < PlaygroundHeight - 2; y++)
+                {
+                    playground[x][y].pointType = BoardSettings.BoardPoint.Empty;
+                }
+            }
+
+            // Wypełniamy punkty bramki polem Goal i usuwamy jeden punkt w środku bramki -- warstwa czwarta
+            UInt16 halfWidth = (UInt16)(pgWidth / 2);
+            for (int i = -1; i < 2; i++)
+            {
+                playground[halfWidth + i][0].pointType = BoardSettings.BoardPoint.Player1Goal;
+                playground[halfWidth + i][PlaygroundHeight - 1].pointType = BoardSettings.BoardPoint.Player2Goal;
+                if (i == 0)
+                {
+                    playground[halfWidth][1].pointType = BoardSettings.BoardPoint.Empty;
+                    playground[halfWidth][PlaygroundHeight - 2].pointType = BoardSettings.BoardPoint.Empty;
                 }
             }
         }
