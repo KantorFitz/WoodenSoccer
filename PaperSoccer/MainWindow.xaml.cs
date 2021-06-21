@@ -61,16 +61,12 @@ namespace PaperSoccer
             /// <summary>
             /// Koordynaty punktu (uint, uint)
             /// </summary>
-            Coordinates coordinate;
             public Point() => (pointType) = (BoardSettings.BoardPoint.Outer);
-            public Point(Coordinates coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
             public Point(uint X, uint Y, BoardSettings.BoardPoint pt)
             {
-                //this.setXY(X, Y);
                 this.setXY(X, Y);
                 pointType = pt;
             }
-            public Point(Coordinates coord) => (coordinate, pointType) = (coord, BoardSettings.BoardPoint.Empty);
         }
 
         private UInt16 pgWidth;
