@@ -66,7 +66,8 @@ namespace PaperSoccer
             public Point(Coordinates coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
             public Point(uint X, uint Y, BoardSettings.BoardPoint pt)
             {
-                coordinate.setXY(X, Y);
+                //this.setXY(X, Y);
+                this.setXY(X, Y);
                 pointType = pt;
             }
             public Point(Coordinates coord) => (coordinate, pointType) = (coord, BoardSettings.BoardPoint.Empty);
@@ -76,9 +77,7 @@ namespace PaperSoccer
         private UInt16 playgroundHeight;
 
         /// <summary>
-        /// Te właściwości są odpowiedzialne za szerokość i wysokość
-        /// planszy boiska, nie mogą być mniejsze od 5x5 i muszą być
-        /// zawsze nieparzyste.
+        /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
         public UInt16 PlaygroundWidth
         {
@@ -104,16 +103,14 @@ namespace PaperSoccer
         }
 
         /// <summary>
-        /// Te właściwości są odpowiedzialne za szerokość i wysokość
-        /// planszy boiska, nie mogą być mniejsze od 5x5 i muszą być
-        /// zawsze nieparzyste.
+        /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
         public UInt16 PlaygroundHeight
         {
             get { return playgroundHeight; }
             set
             {
-                if (value >= 5)
+                if (value >= 7)
                 {
                     if (value % 2 == 0)
                     {
@@ -126,7 +123,7 @@ namespace PaperSoccer
                 }
                 else
                 {
-                    playgroundHeight = 5;
+                    playgroundHeight = 7;
                 }
             }
         }
@@ -134,23 +131,27 @@ namespace PaperSoccer
         /// <summary>
         /// Plansza do gry w Piłkarzyki
         /// </summary>
-        private List<List<Point>> playground;
+        private List<List<Point>> playground = new List<List<Point>>();
 
-        public void PlaygroundInit()
+        public void Init(UInt16 width = 0, UInt16 height = 0)
         {
+            playground.Clear();
+            PlaygroundWidth = width;
+            PlaygroundHeight = height;
             BoardSettings.BoardPoint pt = BoardSettings.BoardPoint.Empty;
+            UInt16 halfWidth = (UInt16)(playgroundWidth / 2);
 
 
-            for (ushort x = 0; x <= PlaygroundWidth; x++)
+            for (UInt16 x = 0; x <= PlaygroundWidth - 1; x++)
             {
                 playground.Add(new List<Point>());
                 var pgx = playground[x];
-                for (ushort y = 0; y <= playgroundHeight; y++)
+                for (UInt16 y = 0; y <= PlaygroundHeight - 1; y++)
                 {
                     // Wypełnienie lewej i prawej krawędzi boiska
-                    if (x == 0 || x == PlaygroundWidth)
+                    if (x == 0 || x == PlaygroundWidth - 1)
                     {
-                        if (y > 0 && y < PlaygroundHeight)
+                        if (y > 0 && y < PlaygroundHeight - 1) 
                         {
                             pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Border));
                         }
@@ -160,20 +161,22 @@ namespace PaperSoccer
                         }
                     }
                     else // wypełnienie pozostałych części
-                    {
-                        if (true)
-                        {
-                            //TODO wypełnienie bramek i wewnętrznej części boiska
+                    {   // jeżeli to wiersz pierwszy i przedostatni to jest to krawędź boiska
+                        if (y == 1 || y == PlaygroundHeight - 2)
+                        {   //jeżeli to kolumna z bramką, to nie nie nie ma tutaj krawędzi
+                            if ((x <= halfWidth - 1) || (x >= halfWidth + 1))
+                            {
+                                pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Border));
+                            }
+                        }
+                        else
+                        {   // W przeciwnym wypadku jest to wewnątrz boiska
+                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Empty));
                         }
                     }
                 }
             }
         }
-
-
-        
-
-
     }
 
 
@@ -185,6 +188,8 @@ namespace PaperSoccer
 
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
+
+        BoardClass board = new BoardClass();
 
         public MainWindow()
         {
@@ -203,6 +208,11 @@ namespace PaperSoccer
 
             
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            board.Init();
         }
     }
 }
