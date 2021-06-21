@@ -47,15 +47,131 @@ namespace PaperSoccer
 
     public class BoardClass
     {
+        /// <summary>
+        /// Klasa Point dziedziczy po klasie Coordinates, zawiera
+        /// informacje o współrzędnych punktu i jego rodzaju.
+        /// </summary>
         public class Point : Coordinates
         {
+            /// <summary>
+            /// Pole mówiące o rodzaju danego punktu
+            /// </summary>
             public BoardSettings.BoardPoint pointType;
+
+            /// <summary>
+            /// Koordynaty punktu (uint, uint)
+            /// </summary>
             Coordinates coordinate;
-            public Point() => (pointType) = (BoardSettings.BoardPoint.Empty);
+            public Point() => (pointType) = (BoardSettings.BoardPoint.Outer);
             public Point(Coordinates coord, BoardSettings.BoardPoint pt) => (coordinate, pointType) = (coord, pt);
+            public Point(uint X, uint Y, BoardSettings.BoardPoint pt)
+            {
+                coordinate.setXY(X, Y);
+                pointType = pt;
+            }
             public Point(Coordinates coord) => (coordinate, pointType) = (coord, BoardSettings.BoardPoint.Empty);
         }
-        public List<List<Point>> Playground = new List<List<Point>>();
+
+        private UInt16 playgroundWidth;
+        private UInt16 playgroundHeight;
+
+        /// <summary>
+        /// Te właściwości są odpowiedzialne za szerokość i wysokość
+        /// planszy boiska, nie mogą być mniejsze od 5x5 i muszą być
+        /// zawsze nieparzyste.
+        /// </summary>
+        public UInt16 PlaygroundWidth
+        {
+            get { return playgroundWidth; }
+            set
+            {
+                if (value >= 5)
+                {
+                    if (value % 2 == 0)
+                    {
+                        playgroundWidth = (ushort)(value + 1);
+                    }
+                    else
+                    {
+                        playgroundWidth = (ushort)value;
+                    }                    
+                }
+                else
+                {
+                    playgroundWidth = 5;
+                }                
+            }
+        }
+
+        /// <summary>
+        /// Te właściwości są odpowiedzialne za szerokość i wysokość
+        /// planszy boiska, nie mogą być mniejsze od 5x5 i muszą być
+        /// zawsze nieparzyste.
+        /// </summary>
+        public UInt16 PlaygroundHeight
+        {
+            get { return playgroundHeight; }
+            set
+            {
+                if (value >= 5)
+                {
+                    if (value % 2 == 0)
+                    {
+                        playgroundHeight = (ushort)(value + 1);
+                    }
+                    else
+                    {
+                        playgroundHeight = (ushort)value;
+                    }
+                }
+                else
+                {
+                    playgroundHeight = 5;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Plansza do gry w Piłkarzyki
+        /// </summary>
+        private List<List<Point>> playground;
+
+        public void PlaygroundInit()
+        {
+            BoardSettings.BoardPoint pt = BoardSettings.BoardPoint.Empty;
+
+
+            for (ushort x = 0; x <= PlaygroundWidth; x++)
+            {
+                playground.Add(new List<Point>());
+                var pgx = playground[x];
+                for (ushort y = 0; y <= playgroundHeight; y++)
+                {
+                    // Wypełnienie lewej i prawej krawędzi boiska
+                    if (x == 0 || x == PlaygroundWidth)
+                    {
+                        if (y > 0 && y < PlaygroundHeight)
+                        {
+                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Border));
+                        }
+                        else
+                        {
+                            pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));
+                        }
+                    }
+                    else // wypełnienie pozostałych części
+                    {
+                        if (true)
+                        {
+                            //TODO wypełnienie bramek i wewnętrznej części boiska
+                        }
+                    }
+                }
+            }
+        }
+
+
+        
 
 
     }
@@ -83,6 +199,7 @@ namespace PaperSoccer
             settingsWindow.ShowDialog();
 
             BoardClass test = new BoardClass();
+            
 
             
 
