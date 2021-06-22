@@ -1,19 +1,19 @@
 ﻿namespace PaperSoccer.GameSettings
 {
-    enum GameState : ushort
+    public enum GameState : ushort
     {
         NotStarted,
         Started,
         Finished        
     }
-    enum Result : ushort
+    public enum Result : ushort
     {
         Draw,
         Player1Won,
         Player2Won
     }
 
-    enum Player : ushort
+    public enum Player : ushort
     {
         Player1,
         Player2
