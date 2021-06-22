@@ -4,6 +4,18 @@
     {
         uint x;
         uint y;
+
+        public Coord()
+        {
+            x = y = 0;
+        }
+
+        public Coord(uint x, uint y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
         public Coord getXY(uint X, uint Y)
         {
             return this;

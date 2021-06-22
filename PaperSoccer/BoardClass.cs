@@ -17,6 +17,12 @@ namespace PaperSoccer
         private List<List<Point>> playground = new List<List<Point>>();
 
         /// <summary>
+        /// Współrzędne piłki w grze
+        /// </summary>
+        private Coord Ball;
+
+
+        /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
         public UInt16 PlaygroundWidth
@@ -68,11 +74,28 @@ namespace PaperSoccer
             }
         }
 
+        /// <summary>
+        /// Właściwość zwracająca połowę szerokości boiska
+        /// </summary>
+        public UInt16 HalfWidth
+        {
+            get { return (UInt16)(PlaygroundWidth / 2); }
+        }
+
+        /// <summary>
+        /// Właściwość zwracająca połowę wysokości boiska
+        /// </summary>
+        public UInt16 HalfHeight
+        {
+            get { return (UInt16)(PlaygroundHeight / 2); }
+        }
+
         public void Init(UInt16 width = 0, UInt16 height = 0)
         {
             playground.Clear();
             PlaygroundWidth = width;
             PlaygroundHeight = height;
+            Ball = new Coord(HalfWidth, HalfHeight);
 
             // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
             for (UInt16 x = 0; x < PlaygroundWidth; x++)
@@ -107,21 +130,52 @@ namespace PaperSoccer
                 for (UInt16 y = 2; y < PlaygroundHeight - 2; y++)
                 {
                     playground[x][y].pointType = BoardSettings.BoardPoint.Empty;
+                    if (x == HalfWidth && y == HalfHeight)
+                    {
+                        playground[x][y].pointType = BoardSettings.BoardPoint.Ball;
+                    }
                 }
             }
 
             // Wypełniamy punkty bramki polem Goal i usuwamy jeden punkt w środku bramki -- warstwa czwarta
-            UInt16 halfWidth = (UInt16)(pgWidth / 2);
             for (int i = -1; i < 2; i++)
             {
-                playground[halfWidth + i][0].pointType = BoardSettings.BoardPoint.Player1Goal;
-                playground[halfWidth + i][PlaygroundHeight - 1].pointType = BoardSettings.BoardPoint.Player2Goal;
+                playground[HalfWidth + i][0].pointType = BoardSettings.BoardPoint.Player1Goal;
+                playground[HalfWidth + i][PlaygroundHeight - 1].pointType = BoardSettings.BoardPoint.Player2Goal;
                 if (i == 0)
                 {
-                    playground[halfWidth][1].pointType = BoardSettings.BoardPoint.Empty;
-                    playground[halfWidth][PlaygroundHeight - 2].pointType = BoardSettings.BoardPoint.Empty;
+                    playground[HalfWidth][1].pointType = BoardSettings.BoardPoint.Empty;
+                    playground[HalfWidth][PlaygroundHeight - 2].pointType = BoardSettings.BoardPoint.Empty;
                 }
             }
+            List<Point> t = new List<Point>();
+            t = GetAllPossibleNeighbourPoints(new Coord(3, 5));
+        }
+
+        public List<Point> GetAllPossibleNeighbourPoints(Coord XY)
+        {
+            List<Point> neighbours = new List<Point>();
+
+            for (int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    if (x == 0 && y == 0)
+                    {
+                        continue; // samego siebie nie zwracamy
+                    }
+                    if ((XY.X() + x < 0) || (XY.Y() + y < 0))
+                    {
+                        continue; //nie wychodzimy poza górną i lewą stronę boiska
+                    }
+                    if ((XY.X() + x == PlaygroundWidth) || (XY.Y() + y == PlaygroundHeight))
+                    {
+                        continue; //nie wychodimy poza dolną i prawą stronę boiska
+                    }
+                    neighbours.Add(playground[(UInt16)(XY.X() + x)][(UInt16)(XY.Y() + y)]); //Zwróć wszystkie sąsiadujące punkty
+                }
+            }
+            return neighbours;
         }
     }
 }

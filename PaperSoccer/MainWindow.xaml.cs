@@ -45,7 +45,8 @@ namespace PaperSoccer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            board.Init();
+            BoardClass df = new BoardClass();
+            df.Init(8, 10);
         }
     }
 }
