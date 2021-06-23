@@ -8,27 +8,27 @@ namespace PaperSoccer
 {
     public class Edge
     {
-        private Coord Starting_point;
-        private Coord Ending_point;
-        private GameSettings.Player Owner;
+        private readonly Coord _startingPoint;
+        private readonly Coord _endingPoint;
+        private readonly GameSettings.Player _owner;
 
         public Edge(Coord p1, Coord p2, GameSettings.Player owner)
         {
-            Starting_point = p1;
-            Ending_point = p2;
-            Owner = owner;
+            _startingPoint = p1;
+            _endingPoint = p2;
+            _owner = owner;
         }
         public Coord GetStartingPoint()
         {
-            return Starting_point;
+            return _startingPoint;
         }
         public Coord GetEndingPoint()
         {
-            return Ending_point;
+            return _endingPoint;
         }
         public GameSettings.Player GetOwner()
         {
-            return Owner;
+            return _owner;
         }
     }
 }

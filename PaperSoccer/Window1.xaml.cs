@@ -16,7 +16,7 @@ namespace PaperSoccer
 {
     public partial class SettingsWindow : Window
     {
-        private MainWindow mainForm = null;
+        private MainWindow _mainForm = null;
 
         public SettingsWindow()
         {
@@ -25,7 +25,7 @@ namespace PaperSoccer
 
         public SettingsWindow(object sender)
         {
-            mainForm = sender as MainWindow;
+            _mainForm = sender as MainWindow;
             InitializeComponent();
         }
 
@@ -51,8 +51,8 @@ namespace PaperSoccer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainForm.Player1Name = tbPlayer1Name.Text;
-            mainForm.Player2Name = tbPlayer2Name.Text;
+            _mainForm.Player1Name = tbPlayer1Name.Text;
+            _mainForm.Player2Name = tbPlayer2Name.Text;
             this.Close();
         }
     }

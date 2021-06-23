@@ -8,18 +8,18 @@ namespace PaperSoccer
         /// <summary>
         /// Wysokość i szerokość planszy
         /// </summary>
-        private UInt16 pgWidth;
-        private UInt16 pgHeight;
+        private UInt16 _pgWidth;
+        private UInt16 _pgHeight;
 
         /// <summary>
         /// Plansza do gry w Piłkarzyki
         /// </summary>
-        private List<List<Point>> playground = new List<List<Point>>();
+        private List<List<Point>> _playground = new List<List<Point>>();
 
         /// <summary>
         /// Współrzędne piłki w grze
         /// </summary>
-        private Coord Ball;
+        private Coord _ball;
 
 
         /// <summary>
@@ -27,23 +27,23 @@ namespace PaperSoccer
         /// </summary>
         public UInt16 PlaygroundWidth
         {
-            get { return pgWidth; }
+            get => _pgWidth;
             set
             {
                 if (value >= 5)
                 {
                     if (value % 2 == 0)
                     {
-                        pgWidth = (ushort)(value + 1);
+                        _pgWidth = (ushort)(value + 1);
                     }
                     else
                     {
-                        pgWidth = (ushort)value;
+                        _pgWidth = (ushort)value;
                     }                    
                 }
                 else
                 {
-                    pgWidth = 5;
+                    _pgWidth = 5;
                 }                
             }
         }
@@ -53,23 +53,23 @@ namespace PaperSoccer
         /// </summary>
         public UInt16 PlaygroundHeight
         {
-            get { return pgHeight; }
+            get => _pgHeight;
             set
             {
                 if (value >= 7)
                 {
                     if (value % 2 == 0)
                     {
-                        pgHeight = (ushort)(value + 1);
+                        _pgHeight = (ushort)(value + 1);
                     }
                     else
                     {
-                        pgHeight = (ushort)value;
+                        _pgHeight = (ushort)value;
                     }
                 }
                 else
                 {
-                    pgHeight = 7;
+                    _pgHeight = 7;
                 }
             }
         }
@@ -77,10 +77,7 @@ namespace PaperSoccer
         /// <summary>
         /// Właściwość zwracająca połowę szerokości boiska
         /// </summary>
-        public UInt16 HalfWidth
-        {
-            get { return (UInt16)(PlaygroundWidth / 2); }
-        }
+        public UInt16 HalfWidth => (UInt16)(PlaygroundWidth / 2);
 
         /// <summary>
         /// Właściwość zwracająca połowę wysokości boiska
@@ -92,16 +89,16 @@ namespace PaperSoccer
 
         public void Init(UInt16 width = 0, UInt16 height = 0)
         {
-            playground.Clear();
+            _playground.Clear();
             PlaygroundWidth = width;
             PlaygroundHeight = height;
-            Ball = new Coord(HalfWidth, HalfHeight);
+            _ball = new Coord(HalfWidth, HalfHeight);
 
             // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
             for (UInt16 x = 0; x < PlaygroundWidth; x++)
             {
-                playground.Add(new List<Point>());
-                var pgx = playground[x];
+                _playground.Add(new List<Point>());
+                var pgx = _playground[x];
                 for (UInt16 y = 0; y < PlaygroundHeight; y++)
                 {
                     pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));                    
@@ -115,11 +112,11 @@ namespace PaperSoccer
                 {
                     if (((x == 0) || (x == PlaygroundWidth - 1)) && (y > 0 && y < PlaygroundHeight - 1))
                     {
-                        playground[x][y].pointType = BoardSettings.BoardPoint.Border; // ||
+                        _playground[x][y].PointType = BoardSettings.BoardPoint.Border; // ||
                     }
                     if (y == 1 || y == PlaygroundHeight - 2)
                     {
-                        playground[x][y].pointType = BoardSettings.BoardPoint.Border; // =
+                        _playground[x][y].PointType = BoardSettings.BoardPoint.Border; // =
                     }
                 }
             }
@@ -129,10 +126,10 @@ namespace PaperSoccer
             {
                 for (UInt16 y = 2; y < PlaygroundHeight - 2; y++)
                 {
-                    playground[x][y].pointType = BoardSettings.BoardPoint.Empty;
+                    _playground[x][y].PointType = BoardSettings.BoardPoint.Empty;
                     if (x == HalfWidth && y == HalfHeight)
                     {
-                        playground[x][y].pointType = BoardSettings.BoardPoint.Ball;
+                        _playground[x][y].PointType = BoardSettings.BoardPoint.Ball;
                     }
                 }
             }
@@ -140,19 +137,19 @@ namespace PaperSoccer
             // Wypełniamy punkty bramki polem Goal i usuwamy jeden punkt w środku bramki -- warstwa czwarta
             for (int i = -1; i < 2; i++)
             {
-                playground[HalfWidth + i][0].pointType = BoardSettings.BoardPoint.Player1Goal;
-                playground[HalfWidth + i][PlaygroundHeight - 1].pointType = BoardSettings.BoardPoint.Player2Goal;
+                _playground[HalfWidth + i][0].PointType = BoardSettings.BoardPoint.Player1Goal;
+                _playground[HalfWidth + i][PlaygroundHeight - 1].PointType = BoardSettings.BoardPoint.Player2Goal;
                 if (i == 0)
                 {
-                    playground[HalfWidth][1].pointType = BoardSettings.BoardPoint.Empty;
-                    playground[HalfWidth][PlaygroundHeight - 2].pointType = BoardSettings.BoardPoint.Empty;
+                    _playground[HalfWidth][1].PointType = BoardSettings.BoardPoint.Empty;
+                    _playground[HalfWidth][PlaygroundHeight - 2].PointType = BoardSettings.BoardPoint.Empty;
                 }
             }
             List<Point> t = new List<Point>();
             t = GetAllPossibleNeighbourPoints(new Coord(3, 5));
         }
 
-        public List<Point> GetAllPossibleNeighbourPoints(Coord XY)
+        public List<Point> GetAllPossibleNeighbourPoints(Coord xy)
         {
             List<Point> neighbours = new List<Point>();
 
@@ -164,18 +161,19 @@ namespace PaperSoccer
                     {
                         continue; // samego siebie nie zwracamy
                     }
-                    if ((XY.X() + x < 0) || (XY.Y() + y < 0))
+                    if ((xy.X() + x < 0) || (xy.Y() + y < 0))
                     {
                         continue; //nie wychodzimy poza górną i lewą stronę boiska
                     }
-                    if ((XY.X() + x == PlaygroundWidth) || (XY.Y() + y == PlaygroundHeight))
+                    if ((xy.X() + x == PlaygroundWidth) || (xy.Y() + y == PlaygroundHeight))
                     {
                         continue; //nie wychodimy poza dolną i prawą stronę boiska
                     }
-                    neighbours.Add(playground[(UInt16)(XY.X() + x)][(UInt16)(XY.Y() + y)]); //Zwróć wszystkie sąsiadujące punkty
+                    neighbours.Add(_playground[(UInt16)(xy.X() + x)][(UInt16)(xy.Y() + y)]); //Zwróć wszystkie sąsiadujące punkty
                 }
             }
             return neighbours;
-        }
+            //TODO Dokończ metodę zwracającą wzystkie krawędzie wokół punktu.
+        } 
     }
 }

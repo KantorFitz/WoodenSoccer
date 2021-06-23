@@ -6,8 +6,9 @@
         Started,
         Finished        
     }
-    public enum Result : ushort
+    public enum GameResult : ushort
     {
+        InProgress,
         Draw,
         Player1Won,
         Player2Won

@@ -11,16 +11,16 @@
             /// <summary>
             /// Pole mówiące o rodzaju danego punktu
             /// </summary>
-            public BoardSettings.BoardPoint pointType;
+            public BoardSettings.BoardPoint PointType;
 
             /// <summary>
             /// Koordynaty punktu (uint, uint)
             /// </summary>
-            public Point() => (pointType) = (BoardSettings.BoardPoint.Outer);
-            public Point(uint X, uint Y, BoardSettings.BoardPoint pt)
+            public Point() => (PointType) = (BoardSettings.BoardPoint.Outer);
+            public Point(uint x, uint y, BoardSettings.BoardPoint pt)
             {
-                this.setXY(X, Y);
-                pointType = pt;
+                this.SetXy(x, y);
+                PointType = pt;
             }
         }
     }

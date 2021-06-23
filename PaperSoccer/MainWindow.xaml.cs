@@ -16,13 +16,13 @@ namespace PaperSoccer
     public partial class MainWindow : Window
     {
         
-        private string player1Name = "";
-        private string player2Name = "";
+        private string _player1Name = "";
+        private string _player2Name = "";
 
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
 
-        BoardClass board = new BoardClass();
+        BoardClass _board = new BoardClass();
 
         public MainWindow()
         {
@@ -46,7 +46,6 @@ namespace PaperSoccer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BoardClass df = new BoardClass();
-            df.Init(8, 10);
         }
     }
 }
