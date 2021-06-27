@@ -129,10 +129,6 @@ namespace PaperSoccer
                 for (UInt16 y = 2; y < PlaygroundHeight - 2; y++)
                 {
                     _playground[x][y].PointType = BoardSettings.BoardPoint.Empty;
-                    if (x == HalfWidth && y == HalfHeight)
-                    {
-                        _playground[x][y].PointType = BoardSettings.BoardPoint.Ball;
-                    }
                 }
             }
 
@@ -181,7 +177,7 @@ namespace PaperSoccer
             List<Edge> result = new();
 
             // Ta pętla realizuje iteracje poziome 
-            for (int y = 0; y < PlaygroundHeight - 1; y++)
+            for (int y = 0; y < PlaygroundHeight; y++)
             {
                 for (int x = 0; x < PlaygroundWidth - 1; x++)
                 {
@@ -212,6 +208,46 @@ namespace PaperSoccer
                         result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), p_));
                         continue;
                     }                    
+                }
+            }            
+            
+            // Ta pętla realizuje iteracje pionowe 
+            for (int x = 0; x < PlaygroundWidth; x++)
+            {
+                for (int y = 0; y < PlaygroundHeight - 1; y++)
+                {
+                    BoardSettings.BoardPoint p_ = _playground[x][y].PointType;
+                    BoardSettings.BoardPoint _p = _playground[x][y + 1].PointType;
+
+                    if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), BoardSettings.BoardPoint.Outer));
+                        continue;
+                    }
+                    if (p_ == BoardSettings.BoardPoint.Border && _p == p_)
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), BoardSettings.BoardPoint.Border));
+                        continue;
+                    }
+                    if (
+                        (p_ == BoardSettings.BoardPoint.Border && _p == BoardSettings.BoardPoint.Empty) ||
+                        (p_ == BoardSettings.BoardPoint.Empty && _p == BoardSettings.BoardPoint.Border) ||
+                        (p_ == BoardSettings.BoardPoint.Empty && p_ == _p)
+                        )
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), BoardSettings.BoardPoint.Empty));
+                        continue;
+                    }
+                    if ( p_ == BoardSettings.BoardPoint.Player1Goal && (_p == BoardSettings.BoardPoint.Border || _p == BoardSettings.BoardPoint.Empty) )
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), _p));
+                        continue;
+                    }                   
+                    if ( (p_ == BoardSettings.BoardPoint.Border || p_ == BoardSettings.BoardPoint.Empty ) && (_p == BoardSettings.BoardPoint.Player2Goal) )
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), p_));
+                        continue;
+                    }
                 }
             }
             return result;

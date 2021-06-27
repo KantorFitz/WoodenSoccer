@@ -45,7 +45,8 @@ namespace PaperSoccer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _board.Init(7, 7);
+            _board.Init();
+            var tet = _board.BoardToEdgeList();
 
             var line = new Line();
             line.X1 = int.Parse(tbx1.Text);
