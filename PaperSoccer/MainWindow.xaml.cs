@@ -22,7 +22,7 @@ namespace PaperSoccer
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
 
-        BoardClass _board = new BoardClass();
+        private BoardClass _board = new();
 
         public MainWindow()
         {
@@ -45,7 +45,20 @@ namespace PaperSoccer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            BoardClass df = new BoardClass();
+            _board.Init(7, 7);
+
+            var line = new Line();
+            line.X1 = int.Parse(tbx1.Text);
+            line.Y1 = int.Parse(tby1.Text);
+            line.X2 = int.Parse(tbx2.Text);
+            line.Y2 = int.Parse(tby2.Text);
+
+            line.Stroke = System.Windows.Media.Brushes.DarkRed;
+            line.StrokeThickness = 3;
+            cnvPaint.Children.Add(line);
+            Canvas jdf;
+
+
         }
     }
 }

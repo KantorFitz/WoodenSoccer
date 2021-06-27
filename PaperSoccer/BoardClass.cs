@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace PaperSoccer
 {
@@ -8,8 +10,8 @@ namespace PaperSoccer
         /// <summary>
         /// Wysokość i szerokość planszy
         /// </summary>
-        private UInt16 _pgWidth;
-        private UInt16 _pgHeight;
+        private int _pgWidth;
+        private int _pgHeight;
 
         /// <summary>
         /// Plansza do gry w Piłkarzyki
@@ -25,7 +27,7 @@ namespace PaperSoccer
         /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
-        public UInt16 PlaygroundWidth
+        public int PlaygroundWidth
         {
             get => _pgWidth;
             set
@@ -34,24 +36,24 @@ namespace PaperSoccer
                 {
                     if (value % 2 == 0)
                     {
-                        _pgWidth = (ushort)(value + 1);
+                        _pgWidth = value + 1;
                     }
                     else
                     {
-                        _pgWidth = (ushort)value;
+                        _pgWidth = value;
                     }                    
                 }
                 else
                 {
                     _pgWidth = 5;
-                }                
+                }
             }
         }
 
         /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
-        public UInt16 PlaygroundHeight
+        public int PlaygroundHeight
         {
             get => _pgHeight;
             set
@@ -60,11 +62,11 @@ namespace PaperSoccer
                 {
                     if (value % 2 == 0)
                     {
-                        _pgHeight = (ushort)(value + 1);
+                        _pgHeight = value + 1;
                     }
                     else
                     {
-                        _pgHeight = (ushort)value;
+                        _pgHeight = value;
                     }
                 }
                 else
@@ -77,17 +79,17 @@ namespace PaperSoccer
         /// <summary>
         /// Właściwość zwracająca połowę szerokości boiska
         /// </summary>
-        public UInt16 HalfWidth => (UInt16)(PlaygroundWidth / 2);
+        public int HalfWidth => PlaygroundWidth / 2;
 
         /// <summary>
         /// Właściwość zwracająca połowę wysokości boiska
         /// </summary>
-        public UInt16 HalfHeight
+        public int HalfHeight
         {
-            get { return (UInt16)(PlaygroundHeight / 2); }
+            get { return PlaygroundHeight / 2; }
         }
 
-        public void Init(UInt16 width = 0, UInt16 height = 0)
+        public void Init(int width = 0, int height = 0)
         {
             _playground.Clear();
             PlaygroundWidth = width;
@@ -145,8 +147,6 @@ namespace PaperSoccer
                     _playground[HalfWidth][PlaygroundHeight - 2].PointType = BoardSettings.BoardPoint.Empty;
                 }
             }
-            List<Point> t = new List<Point>();
-            t = GetAllPossibleNeighbourPoints(new Coord(3, 5));
         }
 
         public List<Point> GetAllPossibleNeighbourPoints(Coord xy)
@@ -174,6 +174,59 @@ namespace PaperSoccer
             }
             return neighbours;
             //TODO Dokończ metodę zwracającą wzystkie krawędzie wokół punktu.
-        } 
+        }
+
+        public List<Edge> BoardToEdgeList()
+        {
+            List<Edge> result = new();
+
+            // Ta pętla realizuje iteracje poziome 
+            for (int y = 0; y < PlaygroundHeight - 1; y++)
+            {
+                for (int x = 0; x < PlaygroundWidth - 1; x++)
+                {
+                    BoardSettings.BoardPoint p_ = _playground[x][y].PointType;
+                    BoardSettings.BoardPoint _p = _playground[x+1][y].PointType;
+
+                    if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), BoardSettings.BoardPoint.Outer));
+                        continue;
+                    }
+                    if (p_ == BoardSettings.BoardPoint.Border && _p == p_)
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), BoardSettings.BoardPoint.Border));
+                        continue;
+                    }
+                    if (
+                        (p_ == BoardSettings.BoardPoint.Border && _p == BoardSettings.BoardPoint.Empty) ||
+                        (p_ == BoardSettings.BoardPoint.Empty && _p == BoardSettings.BoardPoint.Border) ||
+                        (p_ == BoardSettings.BoardPoint.Empty && p_ == _p)
+                        )
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), BoardSettings.BoardPoint.Empty));
+                        continue;
+                    }
+                    if ((p_ == BoardSettings.BoardPoint.Player1Goal || p_ == BoardSettings.BoardPoint.Player2Goal) && p_ == _p)
+                    {
+                        result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), p_));
+                        continue;
+                    }                    
+                }
+            }
+            return result;
+        }
+
+        public void Draw(ref Canvas canvas)
+        {
+            const int space = 25;
+            const int stroke = 1;
+            const int bigStroke = 3;
+            System.Windows.Media.SolidColorBrush colorBrush = System.Windows.Media.Brushes.Black;
+
+            
+
+
+        }
     }
 }

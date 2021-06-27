@@ -17,7 +17,7 @@
             /// Koordynaty punktu (uint, uint)
             /// </summary>
             public Point() => (PointType) = (BoardSettings.BoardPoint.Outer);
-            public Point(uint x, uint y, BoardSettings.BoardPoint pt)
+            public Point(int x, int y, BoardSettings.BoardPoint pt)
             {
                 this.SetXy(x, y);
                 PointType = pt;

@@ -8,6 +8,7 @@
     }
     public enum GameResult : ushort
     {
+        Unknown,
         InProgress,
         Draw,
         Player1Won,
@@ -16,6 +17,7 @@
 
     public enum Player : ushort
     {
+        Unknown,
         Player1,
         Player2
     }        

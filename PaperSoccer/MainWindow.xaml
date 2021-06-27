@@ -7,7 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="Settings" Content="Ustawienia" HorizontalAlignment="Left" Height="52" Margin="524,341,0,0" VerticalAlignment="Top" Width="120" Click="Settings_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="33" Margin="642,272,0,0" VerticalAlignment="Top" Width="48" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Settings" Content="Ustawienia" HorizontalAlignment="Left" Height="52" Margin="24,341,0,0" VerticalAlignment="Top" Width="120" Click="Settings_Click" Grid.Column="1"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="33" Margin="82,272,0,0" VerticalAlignment="Top" Width="48" Click="Button_Click" Grid.Column="1"/>
+        <Canvas x:Name="cnvPaint" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <TextBox Name="tbx1" Grid.Column="1" HorizontalAlignment="Left" Margin="72,44,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="tby1" Grid.Column="1" HorizontalAlignment="Left" Margin="72,67,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="tbx2" Grid.Column="1" HorizontalAlignment="Left" Margin="72,90,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="tby2" Grid.Column="1" HorizontalAlignment="Left" Margin="72,113,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
