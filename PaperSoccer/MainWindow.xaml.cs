@@ -37,15 +37,18 @@ namespace PaperSoccer
             settingsWindow.ShowDialog();
 
             BoardClass test = new BoardClass();
-            
 
-            
+
+
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             _board.Init();
+
+            
+
             var tet = _board.BoardToEdgeList();
 
             var line = new Line();

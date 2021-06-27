@@ -2,9 +2,12 @@
 {
     public class Coord
     {
-        int _x;
-        int _y;
+        private int _x;
+        private int _y;
 
+        /// <summary>
+        /// Domyślny c-tor, x = y = 0;
+        /// </summary>
         public Coord()
         {
             _x = _y = 0;
@@ -12,30 +15,29 @@
 
         public Coord(int x, int y)
         {
-            this._x = x;
-            this._y = y;
+            (_x, _y) = (x, y);
         }
 
-        public Coord GetXy(int x, int y)
+        public void SetXy(int x, int y)
         {
-            return this;
+            (_x, _y) = (x, y);
         }
-        public void SetXy(int x, int y) => (_x, _y) = (x, y);
-        public int X()
+
+        public int GetX()
         {
             return _x;
         }
-        public void X(int x)
+        public void SetX(int x)
         {
-            this._x = x;
+            _x = x;
         }
-        public int Y()
+        public int GetY()
         {
             return _y;
         }
-        public void Y(int y)
+        public void SetY(int y)
         {
-            this._y = y;
+            _y = y;
         }
     }
 }

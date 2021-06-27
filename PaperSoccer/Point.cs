@@ -9,18 +9,31 @@
         public class Point : Coord
         {
             /// <summary>
-            /// Pole mówiące o rodzaju danego punktu
+            /// Prywatne pole mówiące o rodzaju danego punktu
             /// </summary>
-            public BoardSettings.BoardPoint PointType;
+            private BoardSettings.BoardPoint type;
+
+            public new BoardSettings.BoardPoint GetType() => type;
+            public BoardSettings.BoardPoint SetType(BoardSettings.BoardPoint boardPoint) => type = boardPoint;
 
             /// <summary>
-            /// Koordynaty punktu (uint, uint)
+            /// Domyślny konstruktor
             /// </summary>
-            public Point() => (PointType) = (BoardSettings.BoardPoint.Outer);
+            public Point()
+            {
+                type = BoardSettings.BoardPoint.Outer;
+            }
+
+            /// <summary>
+            /// Konstruktor z parametrami
+            /// </summary>
+            /// <param name="x">Koordynaty wierszy</param>
+            /// <param name="y">Koordynaty kolumn</param>
+            /// <param name="pt">Rodzaj punktu</param>
             public Point(int x, int y, BoardSettings.BoardPoint pt)
             {
-                this.SetXy(x, y);
-                PointType = pt;
+                SetXy(x, y);
+                type = pt;
             }
         }
     }

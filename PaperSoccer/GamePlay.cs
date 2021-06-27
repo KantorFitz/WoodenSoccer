@@ -4,7 +4,7 @@
     {
         NotStarted,
         Started,
-        Finished        
+        Finished
     }
     public enum GameResult : ushort
     {
@@ -20,7 +20,7 @@
         Unknown,
         Player1,
         Player2
-    }        
+    }
 }
 
 namespace PaperSoccer.BoardSettings

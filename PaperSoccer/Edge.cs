@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PaperSoccer
 {
@@ -10,16 +7,16 @@ namespace PaperSoccer
     {
         private readonly Coord _startingPoint;
         private readonly Coord _endingPoint;
-        private readonly GameSettings.Player? _owner = null;
-        private readonly BoardSettings.BoardPoint? _type = null;
+        private readonly GameSettings.Player? _owner;
+        private readonly BoardSettings.BoardPoint? _type;
 
         public Edge(Coord p1, Coord p2, GameSettings.Player owner)
         {
             _startingPoint = p1;
             _endingPoint = p2;
             _owner = owner;
-        }        
-        
+        }
+
         public Edge(Coord p1, Coord p2, BoardSettings.BoardPoint type)
         {
             _startingPoint = p1;

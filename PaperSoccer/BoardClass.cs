@@ -16,13 +16,12 @@ namespace PaperSoccer
         /// <summary>
         /// Plansza do gry w Piłkarzyki
         /// </summary>
-        private List<List<Point>> _playground = new List<List<Point>>();
+        private List<List<Point>> _playground = new();
 
         /// <summary>
         /// Współrzędne piłki w grze
         /// </summary>
         private Coord _ball;
-
 
         /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
@@ -79,15 +78,12 @@ namespace PaperSoccer
         /// <summary>
         /// Właściwość zwracająca połowę szerokości boiska
         /// </summary>
-        public int HalfWidth => PlaygroundWidth / 2;
+        private int HalfWidth => PlaygroundWidth / 2;
 
         /// <summary>
         /// Właściwość zwracająca połowę wysokości boiska
         /// </summary>
-        public int HalfHeight
-        {
-            get { return PlaygroundHeight / 2; }
-        }
+        private int HalfHeight => PlaygroundHeight / 2;
 
         public void Init(int width = 0, int height = 0)
         {
@@ -97,57 +93,57 @@ namespace PaperSoccer
             _ball = new Coord(HalfWidth, HalfHeight);
 
             // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
-            for (UInt16 x = 0; x < PlaygroundWidth; x++)
+            for (int x = 0; x < PlaygroundWidth; x++)
             {
                 _playground.Add(new List<Point>());
                 var pgx = _playground[x];
-                for (UInt16 y = 0; y < PlaygroundHeight; y++)
+                for (int y = 0; y < PlaygroundHeight; y++)
                 {
                     pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));                    
                 }
             }
 
             // Wypełniamy obramowanie boiska polem Border; -- warstwa druga
-            for (UInt16 x = 0; x < PlaygroundWidth; x++)
+            for (int x = 0; x < PlaygroundWidth; x++)
             {
-                for (UInt16 y = 0; y < PlaygroundHeight; y++)
+                for (int y = 0; y < PlaygroundHeight; y++)
                 {
-                    if (((x == 0) || (x == PlaygroundWidth - 1)) && (y > 0 && y < PlaygroundHeight - 1))
+                    if (((x == 0) || (x == PlaygroundWidth - 1)) && y > 0 && y < PlaygroundHeight - 1)
                     {
-                        _playground[x][y].PointType = BoardSettings.BoardPoint.Border; // ||
+                        _playground[x][y].SetType(BoardSettings.BoardPoint.Border); // ||
                     }
                     if (y == 1 || y == PlaygroundHeight - 2)
                     {
-                        _playground[x][y].PointType = BoardSettings.BoardPoint.Border; // =
+                        _playground[x][y].SetType(BoardSettings.BoardPoint.Border); // =
                     }
                 }
             }
 
             // Wypełniamy środek boiska polem Empty -- warstwa trzecia
-            for (UInt16 x = 1; x < PlaygroundWidth - 1; x++)
+            for (int x = 1; x < PlaygroundWidth - 1; x++)
             {
-                for (UInt16 y = 2; y < PlaygroundHeight - 2; y++)
+                for (int y = 2; y < PlaygroundHeight - 2; y++)
                 {
-                    _playground[x][y].PointType = BoardSettings.BoardPoint.Empty;
+                    _playground[x][y].SetType(BoardSettings.BoardPoint.Empty);
                 }
             }
 
             // Wypełniamy punkty bramki polem Goal i usuwamy jeden punkt w środku bramki -- warstwa czwarta
             for (int i = -1; i < 2; i++)
             {
-                _playground[HalfWidth + i][0].PointType = BoardSettings.BoardPoint.Player1Goal;
-                _playground[HalfWidth + i][PlaygroundHeight - 1].PointType = BoardSettings.BoardPoint.Player2Goal;
+                _playground[HalfWidth + i][0].SetType(BoardSettings.BoardPoint.Player1Goal);
+                _playground[HalfWidth + i][PlaygroundHeight - 1].SetType(BoardSettings.BoardPoint.Player2Goal);
                 if (i == 0)
                 {
-                    _playground[HalfWidth][1].PointType = BoardSettings.BoardPoint.Empty;
-                    _playground[HalfWidth][PlaygroundHeight - 2].PointType = BoardSettings.BoardPoint.Empty;
+                    _playground[HalfWidth][1].SetType(BoardSettings.BoardPoint.Empty);
+                    _playground[HalfWidth][PlaygroundHeight - 2].SetType(BoardSettings.BoardPoint.Empty);
                 }
             }
         }
 
         public List<Point> GetAllPossibleNeighbourPoints(Coord xy)
         {
-            List<Point> neighbours = new List<Point>();
+            List<Point> neighbours = new();
 
             for (int x = -1; x < 2; x++)
             {
@@ -157,15 +153,15 @@ namespace PaperSoccer
                     {
                         continue; // samego siebie nie zwracamy
                     }
-                    if ((xy.X() + x < 0) || (xy.Y() + y < 0))
+                    if ((xy.GetX() + x < 0) || (xy.GetY() + y < 0))
                     {
                         continue; //nie wychodzimy poza górną i lewą stronę boiska
                     }
-                    if ((xy.X() + x == PlaygroundWidth) || (xy.Y() + y == PlaygroundHeight))
+                    if ((xy.GetX() + x == PlaygroundWidth) || (xy.GetY() + y == PlaygroundHeight))
                     {
                         continue; //nie wychodimy poza dolną i prawą stronę boiska
                     }
-                    neighbours.Add(_playground[(UInt16)(xy.X() + x)][(UInt16)(xy.Y() + y)]); //Zwróć wszystkie sąsiadujące punkty
+                    neighbours.Add(_playground[xy.GetX() + x][xy.GetY() + y]); //Zwróć wszystkie sąsiadujące punkty
                 }
             }
             return neighbours;
@@ -181,8 +177,8 @@ namespace PaperSoccer
             {
                 for (int x = 0; x < PlaygroundWidth - 1; x++)
                 {
-                    BoardSettings.BoardPoint p_ = _playground[x][y].PointType;
-                    BoardSettings.BoardPoint _p = _playground[x+1][y].PointType;
+                    BoardSettings.BoardPoint p_ = _playground[x][y].GetType();
+                    BoardSettings.BoardPoint _p = _playground[x+1][y].GetType();
 
                     if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
                     {
@@ -207,17 +203,17 @@ namespace PaperSoccer
                     {
                         result.Add(new Edge(new Coord(x, y), new Coord(x + 1, y), p_));
                         continue;
-                    }                    
+                    }
                 }
-            }            
-            
+            }
+
             // Ta pętla realizuje iteracje pionowe 
             for (int x = 0; x < PlaygroundWidth; x++)
             {
                 for (int y = 0; y < PlaygroundHeight - 1; y++)
                 {
-                    BoardSettings.BoardPoint p_ = _playground[x][y].PointType;
-                    BoardSettings.BoardPoint _p = _playground[x][y + 1].PointType;
+                    BoardSettings.BoardPoint p_ = _playground[x][y].GetType();
+                    BoardSettings.BoardPoint _p = _playground[x][y + 1].GetType();
 
                     if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
                     {
