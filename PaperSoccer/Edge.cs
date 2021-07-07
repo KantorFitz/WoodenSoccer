@@ -48,6 +48,32 @@ namespace PaperSoccer
         }
 
         /// <summary>
+        /// Zwraca TRUE gdy krawędź jest pozioma
+        /// </summary>
+        public bool IsHorizontal()
+        {
+            return _startingPoint.GetX() == _endingPoint.GetX();
+        }
+
+        /// <summary>
+        /// Zwraca TRUE gdy krawędź jest pionowa
+        /// </summary>
+        public bool IsVertical()
+        {
+            return _startingPoint.GetY() == _endingPoint.GetY();
+        }
+
+        /// <summary>
+        /// Zwraca TRUE gdy krawędź jest pod skosem
+        /// </summary>
+        public bool IsDiagonal()
+        {
+            return IsHorizontal() == false && IsVertical() == false;
+        }
+
+
+
+        /// <summary>
         /// Sprawdza czy obie krawędzie mają takie same współrzędne
         /// </summary>
         /// <param name="obj">Parametr jest krawędzią porównywaną</param>
