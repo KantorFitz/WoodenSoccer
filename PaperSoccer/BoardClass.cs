@@ -309,11 +309,82 @@ namespace PaperSoccer
                 }
                 if (found == false)
                 {
-                    if (_playground[apne.GetEndingPoint().GetX()][apne.GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Outer ||
-                        _playground[apne.GetStartingPoint().GetX()][apne.GetStartingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Outer)
+                    Point pointStart = _playground[apne.GetStartingPoint().GetX()][apne.GetStartingPoint().GetY()];
+                    Point pointEnd = _playground[apne.GetEndingPoint().GetX()][apne.GetEndingPoint().GetY()];
+
+                    //Jeśli któryś z punktów jest spoza boiska
+                    if (pointStart.GetType() == BoardSettings.BoardPoint.Outer ||
+                        pointEnd.GetType() == BoardSettings.BoardPoint.Outer)
                     {
                         continue;
                     }
+
+                    //Jeśli p1 i p2 są typu border i nie są przekątne
+                    if (pointStart.GetType() == BoardSettings.BoardPoint.Border &&
+                        pointEnd.GetType() == BoardSettings.BoardPoint.Border)
+                    {
+                        if (!apne.IsDiagonal())
+                        {
+                            continue;
+                        }
+                    }
+
+                    // Jeśli to bramka gracza 1
+                    if (pointStart.GetType() == BoardSettings.BoardPoint.Player1Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Player1Goal)
+                    {
+                        continue;
+                    }
+
+                    // Jeśli to bramka gracza 2
+                    if (pointStart.GetType() == BoardSettings.BoardPoint.Player2Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Player2Goal)
+                    {
+                        continue;
+                    }
+
+                    //Jeśli krawędź jest przekątna lub pionowa i jest od bramki do granicy
+                    if (apne.IsDiagonal())
+                    {
+                        if (pointEnd.GetX() != HalfWidth)
+                        {
+                            if (pointStart.GetType() == BoardSettings.BoardPoint.Player1Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Border)
+                            {
+                                continue;
+                            }
+                            if (pointEnd.GetType() == BoardSettings.BoardPoint.Player1Goal && pointStart.GetType() == BoardSettings.BoardPoint.Border)
+                            {
+                                continue;
+                            }
+                            if (pointStart.GetType() == BoardSettings.BoardPoint.Player2Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Border)
+                            {
+                                continue;
+                            }
+                            if (pointEnd.GetType() == BoardSettings.BoardPoint.Player2Goal && pointStart.GetType() == BoardSettings.BoardPoint.Border)
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
+                    if (apne.IsVertical())
+                    {
+                        if (pointStart.GetType() == BoardSettings.BoardPoint.Player1Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Border)
+                        {
+                            continue;
+                        }
+                        if (pointEnd.GetType() == BoardSettings.BoardPoint.Player1Goal && pointStart.GetType() == BoardSettings.BoardPoint.Border)
+                        {
+                            continue;
+                        }
+                        if (pointStart.GetType() == BoardSettings.BoardPoint.Player2Goal && pointEnd.GetType() == BoardSettings.BoardPoint.Border)
+                        {
+                            continue;
+                        }
+                        if (pointEnd.GetType() == BoardSettings.BoardPoint.Player2Goal && pointStart.GetType() == BoardSettings.BoardPoint.Border)
+                        {
+                            continue;
+                        }
+                    }
+
                     result.Add(apne);
                 }
             }

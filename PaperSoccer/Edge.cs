@@ -52,7 +52,7 @@ namespace PaperSoccer
         /// </summary>
         public bool IsHorizontal()
         {
-            return _startingPoint.GetX() == _endingPoint.GetX();
+            return _startingPoint.GetY() == _endingPoint.GetY();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace PaperSoccer
         /// </summary>
         public bool IsVertical()
         {
-            return _startingPoint.GetY() == _endingPoint.GetY();
+            return _startingPoint.GetX() == _endingPoint.GetX();
         }
 
         /// <summary>

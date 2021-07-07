@@ -47,12 +47,6 @@ namespace PaperSoccer
         {
             _board.Init();
 
-            while (true)
-            {
-                var list = _board.GetAllUnoccupiedNeighbourEdges(new Coord(0, 0));
-            }
-            
-
             var tet = _board.BoardToEdgeList();
 
             var line = new Line();
