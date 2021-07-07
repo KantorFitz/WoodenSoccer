@@ -46,6 +46,7 @@ namespace PaperSoccer
         {
             return _type;
         }
+
         /// <summary>
         /// Sprawdza czy obie krawędzie mają takie same współrzędne
         /// </summary>

@@ -309,6 +309,11 @@ namespace PaperSoccer
                 }
                 if (found == false)
                 {
+                    if (_playground[apne.GetEndingPoint().GetX()][apne.GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Outer ||
+                        _playground[apne.GetStartingPoint().GetX()][apne.GetStartingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Outer)
+                    {
+                        continue;
+                    }
                     result.Add(apne);
                 }
             }
