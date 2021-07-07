@@ -47,7 +47,7 @@ namespace PaperSoccer
         {
             _board.Init();
 
-            
+          
 
             var tet = _board.BoardToEdgeList();
 

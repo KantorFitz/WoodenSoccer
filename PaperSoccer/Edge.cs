@@ -24,6 +24,12 @@ namespace PaperSoccer
             _type = type;
         }
 
+        public Edge(Coord p1, Coord p2)
+        {
+            _startingPoint = p1;
+            _endingPoint = p2;
+        }
+
         public Coord GetStartingPoint()
         {
             return _startingPoint;

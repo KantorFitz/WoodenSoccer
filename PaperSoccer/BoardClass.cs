@@ -272,10 +272,47 @@ namespace PaperSoccer
         /// czyli krawędzie o typie Empty
         /// </summary>
         /// <param name="xy">Współrzędne zadanego punktu</param>
-        public void /*List<Edge>*/ GetAllPossibleNeighbourEdges(Coord xy)
+        public List<Edge> GetAllPossibleNeighbourEdges(Coord xy)
         {
+            List<Edge> result = new();
 
-            throw new NotImplementedException();
+            var points = GetAllPossibleNeighbourPoints(xy);
+
+            foreach (var item in points)
+            {
+                result.Add(new Edge(xy, new Coord(item.GetX(), item.GetY())));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Metoda zwraca te krawędzie, które można wykorzystać jako dodatkowy ruch
+        /// </summary>
+        /// <param name="xy">Współrzędne zadanego punktu</param>
+        /// <returns>Lista(Edge)</returns>
+        public List<Edge> GetAllUnoccupiedNeighbourEdges(Coord xy)
+        {
+            List<Edge> result = new();
+            foreach (var apne in GetAllPossibleNeighbourEdges(xy))
+            {
+                bool found = false;
+                foreach (var list in _allPlayerMoves)
+                {
+                    foreach (var playerEdge in list)
+                    {
+                        if (playerEdge.Equals(apne))
+                        {
+                            found = true;
+                        }
+                    }
+                }
+                if (found == false)
+                {
+                    result.Add(apne);
+                }
+            }
+            return result;
         }
 
         /// <summary>
