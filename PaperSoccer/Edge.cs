@@ -40,5 +40,19 @@ namespace PaperSoccer
         {
             return _type;
         }
+        /// <summary>
+        /// Sprawdza czy obie krawędzie mają takie same współrzędne
+        /// </summary>
+        /// <param name="obj">Parametr jest krawędzią porównywaną</param>
+        /// <returns>Jeżeli krawędzie posiadają identyczne współrzędne, zwraca TRUE, w przeciwnym razie FALSE</returns>
+        public bool Equals(Edge obj)
+        {
+            bool x1Equals = this.GetStartingPoint().GetX() == obj.GetStartingPoint().GetX();
+            bool y1Equals = this.GetStartingPoint().GetY() == obj.GetStartingPoint().GetY();
+            bool x2Equals = this.GetEndingPoint().GetX() == obj.GetEndingPoint().GetX();
+            bool y2Equals = this.GetEndingPoint().GetY() == obj.GetEndingPoint().GetY();
+
+            return x1Equals && y1Equals && x2Equals && y2Equals;
+        }
     }
 }

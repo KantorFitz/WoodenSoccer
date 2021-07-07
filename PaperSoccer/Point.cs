@@ -32,7 +32,7 @@
             /// <param name="pt">Rodzaj punktu</param>
             public Point(int x, int y, BoardSettings.BoardPoint pt)
             {
-                SetXy(x, y);
+                SetXY(x, y);
                 type = pt;
             }
         }

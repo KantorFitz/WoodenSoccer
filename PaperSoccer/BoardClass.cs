@@ -85,6 +85,11 @@ namespace PaperSoccer
         /// </summary>
         private int HalfHeight => PlaygroundHeight / 2;
 
+        /// <summary>
+        /// Metoda inicjuje puste boisko, czyści wszystko, wypełnia krawędziami
+        /// </summary>
+        /// <param name="width">Zadana szerokość boiska, nie mniejsza niż 5</param>
+        /// <param name="height">Zadana wysokość boiska, nie mniejsza niż 7</param>
         public void Init(int width = 0, int height = 0)
         {
             _playground.Clear();
@@ -141,6 +146,11 @@ namespace PaperSoccer
             }
         }
 
+        /// <summary>
+        /// Metoda zwracająca wszystkie punkty sąssiadujące wokoło punktu xy
+        /// </summary>
+        /// <param name="xy">Koordynaty badanego punktu</param>
+        /// <returns>Listę punktów i ich rodzajów</returns>
         public List<Point> GetAllPossibleNeighbourPoints(Coord xy)
         {
             List<Point> neighbours = new();
@@ -249,13 +259,18 @@ namespace PaperSoccer
             return result;
         }
 
+        /// <summary>
+        /// Metoda rysuje boisko na obiekcie Canvas
+        /// </summary>
         public void Draw(ref Canvas canvas)
         {
             const int space = 25;
             const int stroke = 1;
             const int bigStroke = 3;
             System.Windows.Media.SolidColorBrush colorBrush = System.Windows.Media.Brushes.Black;
+            // TODO zaimplementuj listę 2D, przechowującą kolejne ruchy gracza pierwszego na parzystych indeksach i gracza drugiego na nieparzystych indeksach
 
+            // TODO rysowanie planszy na canvasie
             
 
 

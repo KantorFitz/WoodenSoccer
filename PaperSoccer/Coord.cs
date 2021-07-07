@@ -18,7 +18,7 @@
             (_x, _y) = (x, y);
         }
 
-        public void SetXy(int x, int y)
+        public void SetXY(int x, int y)
         {
             (_x, _y) = (x, y);
         }
