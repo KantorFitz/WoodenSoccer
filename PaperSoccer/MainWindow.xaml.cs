@@ -45,22 +45,12 @@ namespace PaperSoccer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _board.Init();
+            _board.Init(10, 15);
+        }
 
-            var tet = _board.BoardToEdgeList();
-
-            var line = new Line();
-            line.X1 = int.Parse(tbx1.Text);
-            line.Y1 = int.Parse(tby1.Text);
-            line.X2 = int.Parse(tbx2.Text);
-            line.Y2 = int.Parse(tby2.Text);
-
-            line.Stroke = System.Windows.Media.Brushes.DarkRed;
-            line.StrokeThickness = 3;
-            cnvPaint.Children.Add(line);
-            Canvas jdf;
-
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _board.Draw(ref cnvPaint);
         }
     }
 }

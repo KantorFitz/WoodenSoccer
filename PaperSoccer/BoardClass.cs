@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows;
 
 namespace PaperSoccer
 {
@@ -401,11 +403,53 @@ namespace PaperSoccer
             const int bigStroke = 3;
             System.Windows.Media.SolidColorBrush colorBrush = System.Windows.Media.Brushes.Black;
 
+            canvas.Children.Clear();
 
 
-            // TODO rysowanie planszy na canvasie
+            foreach (var item in BoardToEdgeList())
+            {
+                var line = new Line();
+                switch (item.GetType())
+                {
+                    case BoardSettings.BoardPoint.Empty:
+                        line.Stroke = Brushes.LightBlue;
+                        line.StrokeThickness = 1;
+                        break;
+                    case BoardSettings.BoardPoint.Player1Goal:
+                        line.Stroke = Brushes.Red;
+                        line.StrokeThickness = 3;
+                        break;
+                    case BoardSettings.BoardPoint.Player2Goal:
+                        line.Stroke = Brushes.Blue;
+                        line.StrokeThickness = 3;
+                        break;
+                    case BoardSettings.BoardPoint.Border:
+                        line.Stroke = Brushes.Black;
+                        line.StrokeThickness = 1;
+                        break;
 
-            //TODO Dokończ metodę zwracającą wzystkie krawędzie wokół punktu.
+                    default:
+                        break;
+                }   
+
+                line.X1 = item.GetStartingPoint().GetX() * 20;
+                line.X2 = item.GetEndingPoint().GetX() * 20;
+                line.Y1 = item.GetStartingPoint().GetY() * 20;
+                line.Y2 = item.GetEndingPoint().GetY() * 20;
+                canvas.Children.Add(line);
+
+                var ell = new Ellipse();
+                ell.Stroke = SystemColors.WindowTextBrush;
+                ell.Width = 10;
+                ell.Height = 10;
+                canvas.Children.Add(ell);
+                Canvas.SetLeft(ell, HalfWidth*20-5);
+                Canvas.SetTop(ell, HalfHeight*20-5);
+
+            }
+
+
+            //TODO Dopracuj rysowanie
 
 
 
