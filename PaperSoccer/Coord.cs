@@ -39,5 +39,22 @@
         {
             _y = y;
         }
+
+        /// <summary>
+        /// Porównuje koordynaty
+        /// </summary>
+        /// <param name="obj">Porównywany koordynat Coord</param>
+        /// <returns>TRUE jeśli są takie same</returns>
+        public bool Equals(Coord obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            bool xEquals = GetX() == obj.GetX();
+            bool yEquals = GetY() == obj.GetY();
+
+            return xEquals && yEquals;
+        }
     }
 }

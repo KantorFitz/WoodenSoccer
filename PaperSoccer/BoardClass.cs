@@ -24,6 +24,11 @@ namespace PaperSoccer
         private Coord _ball;
 
         /// <summary>
+        /// Lista 2D, przechowującą kolejne ruchy gracza pierwszego na parzystych indeksach i gracza drugiego na nieparzystych indeksach
+        /// </summary>
+        private List<List<Edge>> _allPlayerMoves = new();
+
+        /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>
         public int PlaygroundWidth
@@ -175,9 +180,12 @@ namespace PaperSoccer
                 }
             }
             return neighbours;
-            //TODO Dokończ metodę zwracającą wzystkie krawędzie wokół punktu.
         }
 
+        /// <summary>
+        /// Przedstawia boisko zapisane w postaci punktów, na boisko zapisane w postaci krawędzi.
+        /// </summary>
+        /// <returns>Listę krawędzi</returns>
         public List<Edge> BoardToEdgeList()
         {
             List<Edge> result = new();
@@ -248,7 +256,7 @@ namespace PaperSoccer
                     {
                         result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), _p));
                         continue;
-                    }                   
+                    }
                     if ( (p_ == BoardSettings.BoardPoint.Border || p_ == BoardSettings.BoardPoint.Empty ) && (_p == BoardSettings.BoardPoint.Player2Goal) )
                     {
                         result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), p_));
@@ -260,6 +268,17 @@ namespace PaperSoccer
         }
 
         /// <summary>
+        /// Metoda zwraca wszystkie krawędzie możliwe do wykorzystania w grze,
+        /// czyli krawędzie o typie Empty
+        /// </summary>
+        /// <param name="xy">Współrzędne zadanego punktu</param>
+        public void /*List<Edge>*/ GetAllPossibleNeighbourEdges(Coord xy)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Metoda rysuje boisko na obiekcie Canvas
         /// </summary>
         public void Draw(ref Canvas canvas)
@@ -268,10 +287,13 @@ namespace PaperSoccer
             const int stroke = 1;
             const int bigStroke = 3;
             System.Windows.Media.SolidColorBrush colorBrush = System.Windows.Media.Brushes.Black;
-            // TODO zaimplementuj listę 2D, przechowującą kolejne ruchy gracza pierwszego na parzystych indeksach i gracza drugiego na nieparzystych indeksach
+
+
 
             // TODO rysowanie planszy na canvasie
-            
+
+            //TODO Dokończ metodę zwracającą wzystkie krawędzie wokół punktu.
+
 
 
         }

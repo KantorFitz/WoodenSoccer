@@ -47,12 +47,19 @@ namespace PaperSoccer
         /// <returns>Jeżeli krawędzie posiadają identyczne współrzędne, zwraca TRUE, w przeciwnym razie FALSE</returns>
         public bool Equals(Edge obj)
         {
-            bool x1Equals = this.GetStartingPoint().GetX() == obj.GetStartingPoint().GetX();
-            bool y1Equals = this.GetStartingPoint().GetY() == obj.GetStartingPoint().GetY();
-            bool x2Equals = this.GetEndingPoint().GetX() == obj.GetEndingPoint().GetX();
-            bool y2Equals = this.GetEndingPoint().GetY() == obj.GetEndingPoint().GetY();
+            bool xy1Start = GetStartingPoint().Equals(obj.GetStartingPoint());
+            bool xy1End = GetEndingPoint().Equals(obj.GetEndingPoint());
+            bool normal = xy1End && xy1Start;
 
-            return x1Equals && y1Equals && x2Equals && y2Equals;
+            bool xys1xye2 = GetStartingPoint().Equals(obj.GetEndingPoint());
+            bool xye1xys2 = GetEndingPoint().Equals(obj.GetStartingPoint());
+            bool reversed1 = xys1xye2 && xye1xys2;
+
+            bool xys2xye1 = obj.GetEndingPoint().Equals(GetStartingPoint());
+            bool xye2xys1 = obj.GetStartingPoint().Equals(GetEndingPoint());
+            bool reversed2 = xys2xye1 && xye2xys1;
+
+            return normal || reversed1 || reversed2;
         }
     }
 }
