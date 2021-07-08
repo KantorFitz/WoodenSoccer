@@ -25,10 +25,12 @@ namespace PaperSoccer
 
         private BoardClass _board = new();
         private GameSettings.GameState _gameState = GameSettings.GameState.NotStarted;
+        private GameSettings.Player _currentPlayer = GameSettings.Player.Unknown;
 
         public MainWindow()
         {
             InitializeComponent();
+            cbBoardSize.SelectedIndex = 0;
         }
 
 
@@ -53,10 +55,65 @@ namespace PaperSoccer
 
         private void DirectionButton(object sender, RoutedEventArgs e)
         {
+            Button clicked = sender as Button;
+            var availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
+
+            if (clicked == btnStartGame)
+            {
+                pnlBoardSettings.IsEnabled = false;
+                _gameState = GameSettings.GameState.Started;
+                _currentPlayer = GameSettings.Player.Player1;
+                clicked.IsEnabled= false;
+                foreach (var child in wpPanel.Children)
+                {
+                    (child as Button).IsEnabled = false;
+                }
+
+                foreach (var item in availableMoves)
+                {
+                    switch (item.GetDirection())
+                    {
+                        case BoardSettings.Direction.UNKNOWN:
+                            break;
+                        case BoardSettings.Direction.NW:
+                            btnNW.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.N:
+                            btnN.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.NE:
+                            btnNE.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.W:
+                            btnW.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.E:
+                            btnE.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.SW:
+                            btnSW.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.S:
+                            btnS.IsEnabled = true;
+                            break;
+                        case BoardSettings.Direction.SE:
+                            btnSE.IsEnabled = true;
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
+                    
+
+                }
+
+            }
+            
 
 
 
-            throw new NotImplementedException();
+
+
+
         }
     }
 }

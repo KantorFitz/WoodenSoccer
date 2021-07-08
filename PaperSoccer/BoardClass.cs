@@ -30,6 +30,11 @@ namespace PaperSoccer
         /// </summary>
         private List<List<Edge>> _allPlayerMoves = new();
 
+        public Coord GetBallCoord()
+        {
+            return _ball;
+        }
+
         /// <summary>
         /// Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
         /// </summary>

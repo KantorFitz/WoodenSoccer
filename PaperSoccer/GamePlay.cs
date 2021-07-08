@@ -43,4 +43,16 @@ namespace PaperSoccer.BoardSettings
         OldBall,
         Ball
     }
+    public enum Direction : int
+    {
+        UNKNOWN = -1,
+        NW,
+        N,
+        NE,
+        W,
+        E,
+        SW,
+        S,
+        SE
+    }
 }

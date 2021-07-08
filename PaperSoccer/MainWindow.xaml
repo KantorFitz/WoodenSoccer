@@ -26,16 +26,16 @@
                 <ComboBoxItem Content="Ogromne"/>
             </ComboBox>
         </StackPanel>
-        <WrapPanel IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Height="150" Width="150" Margin="94,209,0,0" Grid.Row="1" VerticalAlignment="Top" >
-            <Button x:Name="btnNW" Height="50" Width="50">\</Button>
-            <Button x:Name="btnN" Height="50" Width="50">|</Button>
-            <Button x:Name="btnNE" Height="50" Width="50">/</Button>
-            <Button x:Name="btnW" Height="50" Width="50">--</Button>
-            <Button x:Name="bntStartGame"  Width="50" Height="50">Start</Button>
-            <Button x:Name="btnE" Height="50" Width="50">--</Button>
-            <Button x:Name="btnSW" Height="50" Width="50">/</Button>
-            <Button x:Name="btnS" Height="50" Width="50">|</Button>
-            <Button x:Name="btnSE" Height="50" Width="50">\</Button>
+        <WrapPanel x:Name="wpPanel"  IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Height="150" Width="150" Margin="94,209,0,0" Grid.Row="1" VerticalAlignment="Top" >
+            <Button x:Name="btnNW" Height="50" Width="50" Click="DirectionButton">\</Button>
+            <Button x:Name="btnN" Height="50" Width="50" Click="DirectionButton">|</Button>
+            <Button x:Name="btnNE" Height="50" Width="50" Click="DirectionButton">/</Button>
+            <Button x:Name="btnW" Height="50" Width="50" Click="DirectionButton">--</Button>
+            <Button x:Name="btnStartGame"  Width="50" Height="50" Click="DirectionButton">Start</Button>
+            <Button x:Name="btnE" Height="50" Width="50" Click="DirectionButton">--</Button>
+            <Button x:Name="btnSW" Height="50" Width="50" Click="DirectionButton">/</Button>
+            <Button x:Name="btnS" Height="50" Width="50" Click="DirectionButton">|</Button>
+            <Button x:Name="btnSE" Height="50" Width="50" Click="DirectionButton">\</Button>
         </WrapPanel>
 
 

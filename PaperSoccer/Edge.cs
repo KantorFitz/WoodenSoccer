@@ -94,5 +94,47 @@ namespace PaperSoccer
 
             return normal || reversed1 || reversed2;
         }
+
+        /// <summary>
+        /// Metoda zwraca zwrot krawędzi
+        /// </summary>
+        /// <returns></returns>
+        public BoardSettings.Direction GetDirection()
+        {
+            if (IsHorizontal())
+            {
+                return _startingPoint.GetX() < _endingPoint.GetX() ? BoardSettings.Direction.E : BoardSettings.Direction.W;
+            }
+            if (IsVertical())
+            {
+                return _startingPoint.GetY() < _endingPoint.GetY() ? BoardSettings.Direction.S : BoardSettings.Direction.N;
+            }
+            if (IsDiagonal())
+            {
+                if (_startingPoint.GetY() < _endingPoint.GetY())
+                {
+                    if (_startingPoint.GetX() < _endingPoint.GetX())
+                    {
+                        return BoardSettings.Direction.SE;
+                    }
+                    if (_startingPoint.GetX() > _endingPoint.GetX())
+                    {
+                        return BoardSettings.Direction.SW;
+                    }
+                }
+                if (_startingPoint.GetY() > _endingPoint.GetY())
+                {
+                    if (_startingPoint.GetX() < _endingPoint.GetX())
+                    {
+                        return BoardSettings.Direction.NE;
+                    }
+                    if (_startingPoint.GetX() > _endingPoint.GetX())
+                    {
+                        return BoardSettings.Direction.NW;
+                    }
+                }
+            }
+            return BoardSettings.Direction.UNKNOWN;
+        }
     }
 }
