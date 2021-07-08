@@ -31,29 +31,17 @@ namespace PaperSoccer
 
         private void PlayerNameEdit_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            TextBox tb = sender as TextBox;
-            if (tb.Text == "Podaj imię")
-            {
-                tb.Clear();
-                tb.Foreground = Brushes.Black;
-            }
+
         }
 
         private void PlayerNameEdit_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            TextBox tb = sender as TextBox;
-            if (tb.Text == "")
-            {
-                tb.Foreground = Brushes.BurlyWood;
-                tb.Text = "Podaj imię";
-            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _mainForm.Player1Name = tbPlayer1Name.Text;
-            _mainForm.Player2Name = tbPlayer2Name.Text;
-            this.Close();
+
         }
     }
 }

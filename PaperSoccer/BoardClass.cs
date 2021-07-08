@@ -398,10 +398,7 @@ namespace PaperSoccer
         /// </summary>
         public void Draw(ref Canvas canvas)
         {
-            const int space = 25;
-            const int stroke = 1;
-            const int bigStroke = 3;
-            System.Windows.Media.SolidColorBrush colorBrush = System.Windows.Media.Brushes.Black;
+            const int space = 20;
 
             canvas.Children.Clear();
 
@@ -409,6 +406,7 @@ namespace PaperSoccer
             foreach (var item in BoardToEdgeList())
             {
                 var line = new Line();
+
                 switch (item.GetType())
                 {
                     case BoardSettings.BoardPoint.Empty:
@@ -430,12 +428,12 @@ namespace PaperSoccer
 
                     default:
                         break;
-                }   
+                }
 
-                line.X1 = item.GetStartingPoint().GetX() * 20;
-                line.X2 = item.GetEndingPoint().GetX() * 20;
-                line.Y1 = item.GetStartingPoint().GetY() * 20;
-                line.Y2 = item.GetEndingPoint().GetY() * 20;
+                line.X1 = item.GetStartingPoint().GetX() * space;
+                line.X2 = item.GetEndingPoint().GetX() * space;
+                line.Y1 = item.GetStartingPoint().GetY() * space;
+                line.Y2 = item.GetEndingPoint().GetY() * space;
                 canvas.Children.Add(line);
 
                 var ell = new Ellipse();

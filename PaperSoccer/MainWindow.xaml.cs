@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,25 +24,13 @@ namespace PaperSoccer
         public string Player2Name { get; set; }
 
         private BoardClass _board = new();
+        private GameSettings.GameState _gameState = GameSettings.GameState.NotStarted;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow settingsWindow = new SettingsWindow(this);
-
-
-            settingsWindow.ShowDialog();
-
-            BoardClass test = new BoardClass();
-
-
-
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +40,23 @@ namespace PaperSoccer
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             _board.Draw(ref cnvPaint);
+        }
+
+        private void cbBoardSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int size = (sender as ComboBox).SelectedIndex;
+            int width = 6 + (2 * size);
+            int height = 8 + (2 * size);
+            _board.Init(width, height);
+            _board.Draw(ref cnvPaint);
+        }
+
+        private void DirectionButton(object sender, RoutedEventArgs e)
+        {
+
+
+
+            throw new NotImplementedException();
         }
     }
 }
