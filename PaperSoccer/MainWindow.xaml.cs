@@ -91,9 +91,9 @@ namespace PaperSoccer
                             break;
                         }
                     }
-                }                
+                }
             }
-            if (clicked == btnS)
+            else if (clicked == btnS)
             {
                 foreach (var item in availableMoves)
                 {
@@ -114,7 +114,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnE)
+            else if (clicked == btnE)
             {
                 foreach (var item in availableMoves)
                 {
@@ -135,7 +135,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnW)
+            else if (clicked == btnW)
             {
                 foreach (var item in availableMoves) //sdfsdfsdfs
                 {
@@ -156,7 +156,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnNW)
+            else if (clicked == btnNW)
             {
                 foreach (var item in availableMoves)
                 {
@@ -177,7 +177,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnNE)
+            else if (clicked == btnNE)
             {
                 foreach (var item in availableMoves)
                 {
@@ -198,7 +198,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnSW)
+            else if (clicked == btnSW)
             {
                 foreach (var item in availableMoves)
                 {
@@ -219,7 +219,7 @@ namespace PaperSoccer
                     }
                 }
             }
-            if (clicked == btnSE)
+            else if (clicked == btnSE)
             {
                 foreach (var item in availableMoves)
                 {

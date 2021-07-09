@@ -474,7 +474,7 @@ namespace PaperSoccer
                 {
                     Line line = new()
                     {
-                        Stroke = index % 2 == 0 ? Brushes.Red : Brushes.Blue
+                        Stroke = (index % 2 == 0) ? Brushes.Red : Brushes.Blue
                     };
                     line.X1 = item.GetStartingPoint().GetX() * space;
                     line.X2 = item.GetEndingPoint().GetX() * space;
@@ -491,12 +491,12 @@ namespace PaperSoccer
             ell.Width = 10;
             ell.Height = 10;
             canvas.Children.Add(ell);
-            Canvas.SetLeft(ell, _ball.GetX() * space - ell.Width / 2); ;
+            Canvas.SetLeft(ell, _ball.GetX() * space - ell.Width / 2);
             Canvas.SetTop(ell, _ball.GetY() * space - ell.Height / 2);
         }
 
         /// <summary>
-        /// Przesuwa piłkę o jedno miejsce w zadanym kiedunku
+        /// Przesuwa piłkę o jedno miejsce w zadanym kiedunku, ustawia stan ruchu gracza
         /// </summary>
         /// <param name="direction">Kierunek</param>
         public void MoveBallInDirection(BoardSettings.Direction direction)
@@ -544,8 +544,37 @@ namespace PaperSoccer
             }
 
             _ball.SetXY(_ball.GetX() + x, _ball.GetY() + y);
-            if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border ||
-                _playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Occupied)
+            HasMove = BoardSettings.PlayerState.HasMove;
+
+            bool isStart = false;
+            bool isEnd = false;
+
+            foreach (var list in _allPlayerMoves)
+            {
+                foreach (var item in list)
+                {
+                    if (item.GetEndingPoint().Equals(_ball))
+                    {
+                        isStart = true;
+                        continue;
+                    }
+                    if (item.GetStartingPoint().Equals(_ball))
+                    {
+                        isEnd = true;
+                        continue;
+                    }                    
+                }
+            }
+            if (isEnd == true && isStart == true)
+            {
+                HasMove = BoardSettings.PlayerState.HasBounce;
+            }
+            else
+            {
+                HasMove = BoardSettings.PlayerState.HasMove;
+            }
+
+            if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border)
             {
                 HasMove = BoardSettings.PlayerState.HasBounce;
             }
