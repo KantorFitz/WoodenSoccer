@@ -33,11 +33,19 @@ namespace PaperSoccer
         public void AddNewPlayerMove(Edge move)
         {
             _allPlayerMoves.Add(new());
-            _allPlayerMoves[_allPlayerMoves.Count - 1].Add(move);
+            int x1 = move.GetStartingPoint().GetX();
+            int x2 = move.GetEndingPoint().GetX();
+            int y1 = move.GetStartingPoint().GetY();
+            int y2 = move.GetEndingPoint().GetY();
+            _allPlayerMoves[^1].Add(new Edge(new Coord(x1, y1), new Coord(x2, y2))); //Ugly workaround
         }
         public void AddCurrentPlayerMove(Edge move)
         {
-            _allPlayerMoves[_allPlayerMoves.Count - 1].Add(move);
+            int x1 = move.GetStartingPoint().GetX();
+            int x2 = move.GetEndingPoint().GetX();
+            int y1 = move.GetStartingPoint().GetY();
+            int y2 = move.GetEndingPoint().GetY();
+            _allPlayerMoves[^1].Add(new Edge(new Coord(x1, y1), new Coord(x2, y2))); // same here
         }
 
         public Coord GetBallCoord()
@@ -316,7 +324,7 @@ namespace PaperSoccer
         /// <param name="xy">Współrzędne zadanego punktu</param>
         /// <returns>Lista(Edge)</returns>
         public List<Edge> GetAllUnoccupiedNeighbourEdges(Coord xy)
-        {
+        { /////
             List<Edge> result = new();
             foreach (var apne in GetAllPossibleNeighbourEdges(xy))
             {
@@ -458,29 +466,16 @@ namespace PaperSoccer
                 line.Y1 = item.GetStartingPoint().GetY() * space;
                 line.Y2 = item.GetEndingPoint().GetY() * space;
                 canvas.Children.Add(line);
-
-                var ell = new Ellipse();
-                ell.Stroke = SystemColors.WindowTextBrush;
-                ell.Width = 10;
-                ell.Height = 10;
-                canvas.Children.Add(ell);
-                Canvas.SetLeft(ell, _ball.GetX() * 20 - 5);
-                Canvas.SetTop(ell, _ball.GetY() * 20 - 5);
             }
 
             for (int index = 0; index < _allPlayerMoves.Count; index++)
             {
-                var line = new Line();
-                if (index % 2 == 0)
+                foreach (Edge item in _allPlayerMoves[index])
                 {
-                    line.Stroke = Brushes.Red;
-                }
-                else
-                {
-                    line.Stroke = Brushes.Blue;
-                }
-                foreach (var item in _allPlayerMoves[index])
-                {
+                    Line line = new()
+                    {
+                        Stroke = index % 2 == 0 ? Brushes.Red : Brushes.Blue
+                    };
                     line.X1 = item.GetStartingPoint().GetX() * space;
                     line.X2 = item.GetEndingPoint().GetX() * space;
                     line.Y1 = item.GetStartingPoint().GetY() * space;
@@ -491,7 +486,13 @@ namespace PaperSoccer
             //TODO Dopracuj rysowanie
 
 
-
+            var ell = new Ellipse();
+            ell.Stroke = SystemColors.WindowTextBrush;
+            ell.Width = 10;
+            ell.Height = 10;
+            canvas.Children.Add(ell);
+            Canvas.SetLeft(ell, _ball.GetX() * space - ell.Width / 2); ;
+            Canvas.SetTop(ell, _ball.GetY() * space - ell.Height / 2);
         }
 
         /// <summary>
@@ -543,6 +544,11 @@ namespace PaperSoccer
             }
 
             _ball.SetXY(_ball.GetX() + x, _ball.GetY() + y);
+            if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border ||
+                _playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Occupied)
+            {
+                HasMove = BoardSettings.PlayerState.HasBounce;
+            }
         }
     }
 }

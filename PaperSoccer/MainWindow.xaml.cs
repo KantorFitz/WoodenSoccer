@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace PaperSoccer
         private void DirectionButton(object sender, RoutedEventArgs e)
         {
             Button clicked = sender as Button;
-            var availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
+            List<Edge> availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
 
             if (clicked == btnStartGame)
             {
@@ -73,7 +74,6 @@ namespace PaperSoccer
 
             if (clicked == btnN)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.N);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.N)
@@ -81,19 +81,20 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.N);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.N);
                             break;
                         }
                     }
-                }
+                }                
             }
             if (clicked == btnS)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.S);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.S)
@@ -101,11 +102,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.S);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.S);
                             break;
                         }
                     }
@@ -113,7 +116,6 @@ namespace PaperSoccer
             }
             if (clicked == btnE)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.E);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.E)
@@ -121,11 +123,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.E);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.E);
                             break;
                         }
                     }
@@ -133,19 +137,20 @@ namespace PaperSoccer
             }
             if (clicked == btnW)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.W);
-                foreach (var item in availableMoves)
+                foreach (var item in availableMoves) //sdfsdfsdfs
                 {
                     if (item.GetDirection() == BoardSettings.Direction.W)
                     {
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.W);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.W);
                             break;
                         }
                     }
@@ -153,7 +158,6 @@ namespace PaperSoccer
             }
             if (clicked == btnNW)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.NW);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.NW)
@@ -161,11 +165,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.NW);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.NW);
                             break;
                         }
                     }
@@ -173,7 +179,6 @@ namespace PaperSoccer
             }
             if (clicked == btnNE)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.NE);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.NE)
@@ -181,11 +186,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.NE);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.NE);
                             break;
                         }
                     }
@@ -193,7 +200,6 @@ namespace PaperSoccer
             }
             if (clicked == btnSW)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.SW);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.SW)
@@ -201,11 +207,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.SW);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.SW);
                             break;
                         }
                     }
@@ -213,7 +221,6 @@ namespace PaperSoccer
             }
             if (clicked == btnSE)
             {
-                _board.MoveBallInDirection(BoardSettings.Direction.SE);
                 foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.SE)
@@ -221,11 +228,13 @@ namespace PaperSoccer
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasMove)
                         {
                             _board.AddNewPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.SE);
                             break;
                         }
                         if (_board.PlayerMoveStatus() == BoardSettings.PlayerState.HasBounce)
                         {
                             _board.AddCurrentPlayerMove(item);
+                            _board.MoveBallInDirection(BoardSettings.Direction.SE);
                             break;
                         }
                     }
@@ -276,65 +285,61 @@ namespace PaperSoccer
             switch (e.Key)
             {
                 case Key.NumPad9:
-                    if (btnNE.IsEnabled == true)
+                    if (btnNE.IsEnabled)
                     {
                         DirectionButton(btnNE, e);
                     }
                     break;
                 case Key.NumPad8:
-                    if (btnN.IsEnabled == true)
+                    if (btnN.IsEnabled)
                     {
                         DirectionButton(btnN, e);
                     }                    
                     break;
                 case Key.NumPad7:
-                    if (btnNW.IsEnabled == true)
+                    if (btnNW.IsEnabled)
                     {
                         DirectionButton(btnNW, e);
                     }
                     break;
                 case Key.NumPad6:
-                    if (btnE.IsEnabled == true)
+                    if (btnE.IsEnabled)
                     {
                         DirectionButton(btnE, e);
                     }
                     break;
                 case Key.NumPad5:
-                    if (btnStartGame.IsEnabled == true)
+                    if (btnStartGame.IsEnabled)
                     {
                         DirectionButton(btnStartGame, e);
                     }
                     break;
                 case Key.NumPad4:
-                    if (btnW.IsEnabled == true)
+                    if (btnW.IsEnabled)
                     {
                         DirectionButton(btnW, e);
                     }
                     break;
                 case Key.NumPad3:
-                    if (btnSE.IsEnabled == true)
+                    if (btnSE.IsEnabled)
                     {
                         DirectionButton(btnSE, e);
                     }
                     break;
                 case Key.NumPad2:
-                    if (btnS.IsEnabled == true)
+                    if (btnS.IsEnabled)
                     {
                         DirectionButton(btnS, e);
                     }
                     break;
                 case Key.NumPad1:
-                    if (btnSW.IsEnabled == true)
+                    if (btnSW.IsEnabled)
                     {
                         DirectionButton(btnSW, e);
                     }
                     break;
                 default:
                     break;
-            }
-            if (e.Key == Key.NumPad9)
-            {
-
             }
         }
 
