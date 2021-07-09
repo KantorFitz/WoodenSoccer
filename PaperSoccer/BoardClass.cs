@@ -30,9 +30,25 @@ namespace PaperSoccer
         /// </summary>
         private List<List<Edge>> _allPlayerMoves = new();
 
+        public void AddNewPlayerMove(Edge move)
+        {
+            _allPlayerMoves.Add(new());
+            _allPlayerMoves[_allPlayerMoves.Count - 1].Add(move);
+        }
+        public void AddCurrentPlayerMove(Edge move)
+        {
+            _allPlayerMoves[_allPlayerMoves.Count - 1].Add(move);
+        }
+
         public Coord GetBallCoord()
         {
             return _ball;
+        }
+
+        private BoardSettings.PlayerState HasMove = BoardSettings.PlayerState.CanStopHere;
+        public BoardSettings.PlayerState PlayerMoveStatus()
+        {
+            return HasMove;
         }
 
         /// <summary>
@@ -108,6 +124,7 @@ namespace PaperSoccer
             PlaygroundWidth = width;
             PlaygroundHeight = height;
             _ball = new Coord(HalfWidth, HalfHeight);
+            HasMove = BoardSettings.PlayerState.HasMove;
 
             // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
             for (int x = 0; x < PlaygroundWidth; x++)
@@ -406,7 +423,7 @@ namespace PaperSoccer
             const int space = 20;
 
             canvas.Children.Clear();
-
+            
 
             foreach (var item in BoardToEdgeList())
             {
@@ -430,8 +447,9 @@ namespace PaperSoccer
                         line.Stroke = Brushes.Black;
                         line.StrokeThickness = 1;
                         break;
-
                     default:
+                        line.Stroke = Brushes.White;
+                        line.StrokeThickness = 1;
                         break;
                 }
 
@@ -446,16 +464,85 @@ namespace PaperSoccer
                 ell.Width = 10;
                 ell.Height = 10;
                 canvas.Children.Add(ell);
-                Canvas.SetLeft(ell, HalfWidth*20-5);
-                Canvas.SetTop(ell, HalfHeight*20-5);
-
+                Canvas.SetLeft(ell, _ball.GetX() * 20 - 5);
+                Canvas.SetTop(ell, _ball.GetY() * 20 - 5);
             }
 
-
+            for (int index = 0; index < _allPlayerMoves.Count; index++)
+            {
+                var line = new Line();
+                if (index % 2 == 0)
+                {
+                    line.Stroke = Brushes.Red;
+                }
+                else
+                {
+                    line.Stroke = Brushes.Blue;
+                }
+                foreach (var item in _allPlayerMoves[index])
+                {
+                    line.X1 = item.GetStartingPoint().GetX() * space;
+                    line.X2 = item.GetEndingPoint().GetX() * space;
+                    line.Y1 = item.GetStartingPoint().GetY() * space;
+                    line.Y2 = item.GetEndingPoint().GetY() * space;
+                    canvas.Children.Add(line);
+                }
+            }
             //TODO Dopracuj rysowanie
 
 
 
+        }
+
+        /// <summary>
+        /// Przesuwa piłkę o jedno miejsce w zadanym kiedunku
+        /// </summary>
+        /// <param name="direction">Kierunek</param>
+        public void MoveBallInDirection(BoardSettings.Direction direction)
+        {
+            int x = 0;
+            int y = 0;
+            switch (direction)
+            {
+                case BoardSettings.Direction.UNKNOWN:
+                    break;
+                case BoardSettings.Direction.NW:
+                    x = -1;
+                    y = -1;
+                    break;
+                case BoardSettings.Direction.N:
+                    x = 0;
+                    y = -1;
+                    break;
+                case BoardSettings.Direction.NE:
+                    x = 1;
+                    y = -1;
+                    break;
+                case BoardSettings.Direction.W:
+                    x = -1;
+                    y = 0;
+                    break;
+                case BoardSettings.Direction.E:
+                    x = 1;
+                    y = 0;
+                    break;
+                case BoardSettings.Direction.SW:
+                    x = -1;
+                    y = 1;
+                    break;
+                case BoardSettings.Direction.S:
+                    x = 0;
+                    y = 1;
+                    break;
+                case BoardSettings.Direction.SE:
+                    x = 1;
+                    y = 1;
+                    break;
+                default:
+                    break;
+            }
+
+            _ball.SetXY(_ball.GetX() + x, _ball.GetY() + y);
         }
     }
 }

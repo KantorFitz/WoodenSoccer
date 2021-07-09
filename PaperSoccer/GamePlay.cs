@@ -29,6 +29,7 @@ namespace PaperSoccer.BoardSettings
     {
         CanStopHere,
         CanNotStopHere,
+        HasMove,
         HasBounce,
         FinishedMove
     }
