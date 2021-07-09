@@ -32,6 +32,10 @@ namespace PaperSoccer
         {
             InitializeComponent();
             cbBoardSize.SelectedIndex = 0;
+            if (_gameState != GameSettings.GameState.Started && _gameState != GameSettings.GameState.Finished)
+            {
+                btnStartGame.IsEnabled = true;
+            }
         }
 
 
@@ -59,17 +63,17 @@ namespace PaperSoccer
             Button clicked = sender as Button;
             List<Edge> availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
 
+            // Wyłączenie wszystkich przycisków
+            foreach (var child in wpPanel.Children)
+            {
+                (child as Button).IsEnabled = false;
+            }
+
             if (clicked == btnStartGame)
             {
                 pnlBoardSettings.IsEnabled = false;
                 _gameState = GameSettings.GameState.Started;
                 _currentPlayer = GameSettings.Player.Player1;
-            }
-
-            // Wyłączenie wszystkich przycisków
-            foreach (var child in wpPanel.Children)
-            {
-                (child as Button).IsEnabled = false;
             }
 
             if (clicked == btnN)
@@ -278,6 +282,23 @@ namespace PaperSoccer
                         throw new NotImplementedException();
                 }
             }
+            if (_board.GetGameResult() != GameSettings.GameResult.Unknown)
+            {
+                if (_board.GetGameResult() == GameSettings.GameResult.Player2Won)
+                {
+                    lblWhoWon.Content = "Gratulacje, gracz Czerwony wygrał!";
+                    lblWhoWon.Visibility = Visibility.Visible;
+                }
+                if (_board.GetGameResult() == GameSettings.GameResult.Player1Won)
+                {
+                    lblWhoWon.Content = "Gratulacje, gracz Niebieski wygrał!";
+                    lblWhoWon.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                lblWhoWon.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -342,6 +363,5 @@ namespace PaperSoccer
                     break;
             }
         }
-
     }
 }

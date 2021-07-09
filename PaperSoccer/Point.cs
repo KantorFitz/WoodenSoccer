@@ -1,4 +1,7 @@
-﻿namespace PaperSoccer
+﻿using PaperSoccer.GameSettings;
+using System;
+
+namespace PaperSoccer
 {
     public partial class BoardClass
     {
@@ -35,6 +38,6 @@
                 SetXY(x, y);
                 type = pt;
             }
-        }
+        }        
     }
 }

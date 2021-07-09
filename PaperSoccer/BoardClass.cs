@@ -30,6 +30,18 @@ namespace PaperSoccer
         /// </summary>
         private List<List<Edge>> _allPlayerMoves = new();
 
+        public GameSettings.Player GetCurrentPlayer()
+        {
+            if (_allPlayerMoves.Count == 0)
+            {
+                return GameSettings.Player.Player1;
+            }
+            else
+            {
+                return (_allPlayerMoves.Count % 2 == 0) ? GameSettings.Player.Player2 : GameSettings.Player.Player1;
+            }
+        }
+
         public void AddNewPlayerMove(Edge move)
         {
             _allPlayerMoves.Add(new());
@@ -54,6 +66,11 @@ namespace PaperSoccer
         }
 
         private BoardSettings.PlayerState HasMove = BoardSettings.PlayerState.CanStopHere;
+        private GameSettings.GameResult GameResult = GameSettings.GameResult.Unknown;
+        public GameSettings.GameResult GetGameResult()
+        {
+            return GameResult;
+        }
         public BoardSettings.PlayerState PlayerMoveStatus()
         {
             return HasMove;
@@ -487,7 +504,7 @@ namespace PaperSoccer
 
 
             var ell = new Ellipse();
-            ell.Stroke = SystemColors.WindowTextBrush;
+            ell.Stroke = (_allPlayerMoves.Count == 0) ? Brushes.Red : (canvas.Children[^1] as Line).Stroke;
             ell.Width = 10;
             ell.Height = 10;
             canvas.Children.Add(ell);
@@ -562,7 +579,7 @@ namespace PaperSoccer
                     {
                         isEnd = true;
                         continue;
-                    }                    
+                    }
                 }
             }
             if (isEnd == true && isStart == true)
@@ -577,6 +594,30 @@ namespace PaperSoccer
             if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border)
             {
                 HasMove = BoardSettings.PlayerState.HasBounce;
+            }
+
+            if (_playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Player1Goal)
+            {
+                if (GetCurrentPlayer() == GameSettings.Player.Player1)
+                {
+                    GameResult = GameSettings.GameResult.Player2Won;
+                }
+                else
+                {
+                    GameResult = GameSettings.GameResult.Player1Won;
+                }
+                
+            }
+            if (_playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Player2Goal)
+            {
+                if (GetCurrentPlayer() == GameSettings.Player.Player1)
+                {
+                    GameResult = GameSettings.GameResult.Player1Won;
+                }
+                else
+                {
+                    GameResult = GameSettings.GameResult.Player2Won;
+                }
             }
         }
     }
