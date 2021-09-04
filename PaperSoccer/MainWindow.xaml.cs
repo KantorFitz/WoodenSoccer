@@ -53,7 +53,7 @@ namespace PaperSoccer
         {
             int size = (sender as ComboBox).SelectedIndex;
             int width = 6 + (2 * size);
-            int height = 8 + (2 * size);
+            int height = 10 + (2 * size);
             _board.Init(width, height);
             _board.Draw(ref cnvPaint);
         }
@@ -141,7 +141,7 @@ namespace PaperSoccer
             }
             else if (clicked == btnW)
             {
-                foreach (var item in availableMoves) //sdfsdfsdfs
+                foreach (var item in availableMoves) 
                 {
                     if (item.GetDirection() == BoardSettings.Direction.W)
                     {

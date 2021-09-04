@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PaperSoccer</name>
+    </assembly>
+    <members>
+        <member name="T:PaperSoccer.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="F:PaperSoccer.BoardClass._pgWidth">
+            <summary>
+            Wysokość i szerokość planszy
+            </summary>
+        </member>
+        <member name="F:PaperSoccer.BoardClass._playground">
+            <summary>
+            Plansza do gry w Piłkarzyki
+            </summary>
+        </member>
+        <member name="F:PaperSoccer.BoardClass._ball">
+            <summary>
+            Współrzędne piłki w grze
+            </summary>
+        </member>
+        <member name="F:PaperSoccer.BoardClass._allPlayerMoves">
+            <summary>
+            Lista 2D, przechowującą kolejne ruchy gracza pierwszego na parzystych indeksach i gracza drugiego na nieparzystych indeksach
+            </summary>
+        </member>
+        <member name="P:PaperSoccer.BoardClass.PlaygroundWidth">
+            <summary>
+            Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
+            </summary>
+        </member>
+        <member name="P:PaperSoccer.BoardClass.PlaygroundHeight">
+            <summary>
+            Te właściwości są odpowiedzialne za szerokość i wysokość planszy boiska, nie mogą być mniejsze od 5x7 i muszą być zawsze nieparzyste. Bramka ma szerokość 3 punktów.
+            </summary>
+        </member>
+        <member name="P:PaperSoccer.BoardClass.HalfWidth">
+            <summary>
+            Właściwość zwracająca połowę szerokości boiska
+            </summary>
+        </member>
+        <member name="P:PaperSoccer.BoardClass.HalfHeight">
+            <summary>
+            Właściwość zwracająca połowę wysokości boiska
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.Init(System.Int32,System.Int32)">
+            <summary>
+            Metoda inicjuje puste boisko, czyści wszystko, wypełnia krawędziami
+            </summary>
+            <param name="width">Zadana szerokość boiska, nie mniejsza niż 5</param>
+            <param name="height">Zadana wysokość boiska, nie mniejsza niż 7</param>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.GetAllPossibleNeighbourPoints(PaperSoccer.Coord)">
+            <summary>
+            Metoda zwracająca wszystkie punkty sąssiadujące wokoło punktu xy
+            </summary>
+            <param name="xy">Koordynaty badanego punktu</param>
+            <returns>Listę punktów i ich rodzajów</returns>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.BoardToEdgeList">
+            <summary>
+            Przedstawia boisko zapisane w postaci punktów, na boisko zapisane w postaci krawędzi.
+            </summary>
+            <returns>Listę krawędzi</returns>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.GetAllPossibleNeighbourEdges(PaperSoccer.Coord)">
+            <summary>
+            Metoda zwraca wszystkie krawędzie możliwe do wykorzystania w grze,
+            czyli krawędzie o typie Empty
+            </summary>
+            <param name="xy">Współrzędne zadanego punktu</param>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.GetAllUnoccupiedNeighbourEdges(PaperSoccer.Coord)">
+            <summary>
+            Metoda zwraca te krawędzie, które można wykorzystać jako dodatkowy ruch
+            </summary>
+            <param name="xy">Współrzędne zadanego punktu</param>
+            <returns>Lista(Edge)</returns>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.Draw(System.Windows.Controls.Canvas@)">
+            <summary>
+            Metoda rysuje boisko na obiekcie Canvas
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.MoveBallInDirection(PaperSoccer.BoardSettings.Direction)">
+            <summary>
+            Przesuwa piłkę o jedno miejsce w zadanym kiedunku, ustawia stan ruchu gracza
+            </summary>
+            <param name="direction">Kierunek</param>
+        </member>
+        <member name="T:PaperSoccer.BoardClass.Point">
+            <summary>
+            Klasa Point dziedziczy po klasie Coordinates, zawiera
+            informacje o współrzędnych punktu i jego rodzaju.
+            </summary>
+        </member>
+        <member name="F:PaperSoccer.BoardClass.Point.type">
+            <summary>
+            Prywatne pole mówiące o rodzaju danego punktu
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.Point.#ctor">
+            <summary>
+            Domyślny konstruktor
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.BoardClass.Point.#ctor(System.Int32,System.Int32,PaperSoccer.BoardSettings.BoardPoint)">
+            <summary>
+            Konstruktor z parametrami
+            </summary>
+            <param name="x">Koordynaty wierszy</param>
+            <param name="y">Koordynaty kolumn</param>
+            <param name="pt">Rodzaj punktu</param>
+        </member>
+        <member name="M:PaperSoccer.Coord.#ctor">
+            <summary>
+            Domyślny c-tor, x = y = 0;
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.Coord.Equals(PaperSoccer.Coord)">
+            <summary>
+            Porównuje koordynaty
+            </summary>
+            <param name="obj">Porównywany koordynat Coord</param>
+            <returns>TRUE jeśli są takie same</returns>
+        </member>
+        <member name="M:PaperSoccer.Edge.IsHorizontal">
+            <summary>
+            Zwraca TRUE gdy krawędź jest pozioma
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.Edge.IsVertical">
+            <summary>
+            Zwraca TRUE gdy krawędź jest pionowa
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.Edge.IsDiagonal">
+            <summary>
+            Zwraca TRUE gdy krawędź jest pod skosem
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.Edge.Equals(PaperSoccer.Edge)">
+            <summary>
+            Sprawdza czy obie krawędzie mają takie same współrzędne
+            </summary>
+            <param name="obj">Parametr jest krawędzią porównywaną</param>
+            <returns>Jeżeli krawędzie posiadają identyczne współrzędne, zwraca TRUE, w przeciwnym razie FALSE</returns>
+        </member>
+        <member name="M:PaperSoccer.Edge.GetDirection">
+            <summary>
+            Metoda zwraca zwrot krawędzi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PaperSoccer.MainWindow">
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:PaperSoccer.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

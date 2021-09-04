@@ -245,7 +245,7 @@ namespace PaperSoccer
                 for (int x = 0; x < PlaygroundWidth - 1; x++)
                 {
                     BoardSettings.BoardPoint p_ = _playground[x][y].GetType();
-                    BoardSettings.BoardPoint _p = _playground[x+1][y].GetType();
+                    BoardSettings.BoardPoint _p = _playground[x + 1][y].GetType();
 
                     if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
                     {
@@ -341,7 +341,7 @@ namespace PaperSoccer
         /// <param name="xy">Współrzędne zadanego punktu</param>
         /// <returns>Lista(Edge)</returns>
         public List<Edge> GetAllUnoccupiedNeighbourEdges(Coord xy)
-        { /////
+        { 
             List<Edge> result = new();
             foreach (var apne in GetAllPossibleNeighbourEdges(xy))
             {
@@ -566,6 +566,7 @@ namespace PaperSoccer
             bool isStart = false;
             bool isEnd = false;
 
+            // Ta pętla sprawdza czy koordynaty piłki są na łączeniu krawędzi
             foreach (var list in _allPlayerMoves)
             {
                 foreach (var item in list)
@@ -591,12 +592,15 @@ namespace PaperSoccer
                 HasMove = BoardSettings.PlayerState.HasMove;
             }
 
+            // Jeżeli piłka jest na granicy boiska, może się odbić
             if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border)
             {
                 HasMove = BoardSettings.PlayerState.HasBounce;
             }
 
-            if (_playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Player1Goal)
+            var LastPointType = _playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType();
+
+            if (LastPointType == BoardSettings.BoardPoint.Player1Goal)
             {
                 if (GetCurrentPlayer() == GameSettings.Player.Player1)
                 {
@@ -608,7 +612,7 @@ namespace PaperSoccer
                 }
                 
             }
-            if (_playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType() == BoardSettings.BoardPoint.Player2Goal)
+            if (LastPointType == BoardSettings.BoardPoint.Player2Goal)
             {
                 if (GetCurrentPlayer() == GameSettings.Player.Player1)
                 {

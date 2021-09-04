@@ -24,6 +24,9 @@
                 <ComboBoxItem Content="Normalne"/>
                 <ComboBoxItem Content="Duże"/>
                 <ComboBoxItem Content="Ogromne"/>
+                <ComboBoxItem Content="Potężne"/>
+                <ComboBoxItem Content="Mega"/>
+                <ComboBoxItem Content="Maraton"/>
             </ComboBox>
         </StackPanel>
         <WrapPanel x:Name="wpPanel"  IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Height="150" Width="150" Margin="94,209,0,0" Grid.Row="1" VerticalAlignment="Top" >

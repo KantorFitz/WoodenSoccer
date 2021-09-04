@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Programowanie\Soccer\PaperSoccer\PaperSoccer.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
