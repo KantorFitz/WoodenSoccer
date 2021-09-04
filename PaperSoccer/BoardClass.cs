@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Shapes;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows;
+using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
@@ -13,6 +11,7 @@ namespace PaperSoccer
         /// Wysokość i szerokość planszy
         /// </summary>
         private int _pgWidth;
+
         private int _pgHeight;
 
         /// <summary>
@@ -51,6 +50,7 @@ namespace PaperSoccer
             int y2 = move.GetEndingPoint().GetY();
             _allPlayerMoves[^1].Add(new Edge(new Coord(x1, y1), new Coord(x2, y2))); //Ugly workaround
         }
+
         public void AddCurrentPlayerMove(Edge move)
         {
             int x1 = move.GetStartingPoint().GetX();
@@ -67,10 +67,12 @@ namespace PaperSoccer
 
         private BoardSettings.PlayerState HasMove = BoardSettings.PlayerState.CanStopHere;
         private GameSettings.GameResult GameResult = GameSettings.GameResult.Unknown;
+
         public GameSettings.GameResult GetGameResult()
         {
             return GameResult;
         }
+
         public BoardSettings.PlayerState PlayerMoveStatus()
         {
             return HasMove;
@@ -93,7 +95,7 @@ namespace PaperSoccer
                     else
                     {
                         _pgWidth = value;
-                    }                    
+                    }
                 }
                 else
                 {
@@ -158,7 +160,7 @@ namespace PaperSoccer
                 var pgx = _playground[x];
                 for (int y = 0; y < PlaygroundHeight; y++)
                 {
-                    pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));                    
+                    pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));
                 }
             }
 
@@ -239,7 +241,7 @@ namespace PaperSoccer
         {
             List<Edge> result = new();
 
-            // Ta pętla realizuje iteracje poziome 
+            // Ta pętla realizuje iteracje poziome
             for (int y = 0; y < PlaygroundHeight; y++)
             {
                 for (int x = 0; x < PlaygroundWidth - 1; x++)
@@ -274,7 +276,7 @@ namespace PaperSoccer
                 }
             }
 
-            // Ta pętla realizuje iteracje pionowe 
+            // Ta pętla realizuje iteracje pionowe
             for (int x = 0; x < PlaygroundWidth; x++)
             {
                 for (int y = 0; y < PlaygroundHeight - 1; y++)
@@ -301,12 +303,12 @@ namespace PaperSoccer
                         result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), BoardSettings.BoardPoint.Empty));
                         continue;
                     }
-                    if ( p_ == BoardSettings.BoardPoint.Player1Goal && (_p == BoardSettings.BoardPoint.Border || _p == BoardSettings.BoardPoint.Empty) )
+                    if (p_ == BoardSettings.BoardPoint.Player1Goal && (_p == BoardSettings.BoardPoint.Border || _p == BoardSettings.BoardPoint.Empty))
                     {
                         result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), _p));
                         continue;
                     }
-                    if ( (p_ == BoardSettings.BoardPoint.Border || p_ == BoardSettings.BoardPoint.Empty ) && (_p == BoardSettings.BoardPoint.Player2Goal) )
+                    if ((p_ == BoardSettings.BoardPoint.Border || p_ == BoardSettings.BoardPoint.Empty) && (_p == BoardSettings.BoardPoint.Player2Goal))
                     {
                         result.Add(new Edge(new Coord(x, y), new Coord(x, y + 1), p_));
                         continue;
@@ -341,7 +343,7 @@ namespace PaperSoccer
         /// <param name="xy">Współrzędne zadanego punktu</param>
         /// <returns>Lista(Edge)</returns>
         public List<Edge> GetAllUnoccupiedNeighbourEdges(Coord xy)
-        { 
+        {
             List<Edge> result = new();
             foreach (var apne in GetAllPossibleNeighbourEdges(xy))
             {
@@ -448,7 +450,6 @@ namespace PaperSoccer
             const int space = 20;
 
             canvas.Children.Clear();
-            
 
             foreach (var item in BoardToEdgeList())
             {
@@ -460,18 +461,22 @@ namespace PaperSoccer
                         line.Stroke = Brushes.LightBlue;
                         line.StrokeThickness = 1;
                         break;
+
                     case BoardSettings.BoardPoint.Player1Goal:
                         line.Stroke = Brushes.Red;
                         line.StrokeThickness = 3;
                         break;
+
                     case BoardSettings.BoardPoint.Player2Goal:
                         line.Stroke = Brushes.Blue;
                         line.StrokeThickness = 3;
                         break;
+
                     case BoardSettings.BoardPoint.Border:
                         line.Stroke = Brushes.Black;
                         line.StrokeThickness = 1;
                         break;
+
                     default:
                         line.Stroke = Brushes.White;
                         line.StrokeThickness = 1;
@@ -502,7 +507,6 @@ namespace PaperSoccer
             }
             //TODO Dopracuj rysowanie
 
-
             var ell = new Ellipse();
             ell.Stroke = (_allPlayerMoves.Count == 0) ? Brushes.Red : (canvas.Children[^1] as Line).Stroke;
             ell.Width = 10;
@@ -524,38 +528,47 @@ namespace PaperSoccer
             {
                 case BoardSettings.Direction.UNKNOWN:
                     break;
+
                 case BoardSettings.Direction.NW:
                     x = -1;
                     y = -1;
                     break;
+
                 case BoardSettings.Direction.N:
                     x = 0;
                     y = -1;
                     break;
+
                 case BoardSettings.Direction.NE:
                     x = 1;
                     y = -1;
                     break;
+
                 case BoardSettings.Direction.W:
                     x = -1;
                     y = 0;
                     break;
+
                 case BoardSettings.Direction.E:
                     x = 1;
                     y = 0;
                     break;
+
                 case BoardSettings.Direction.SW:
                     x = -1;
                     y = 1;
                     break;
+
                 case BoardSettings.Direction.S:
                     x = 0;
                     y = 1;
                     break;
+
                 case BoardSettings.Direction.SE:
                     x = 1;
                     y = 1;
                     break;
+
                 default:
                     break;
             }
@@ -610,7 +623,6 @@ namespace PaperSoccer
                 {
                     GameResult = GameSettings.GameResult.Player1Won;
                 }
-                
             }
             if (LastPointType == BoardSettings.BoardPoint.Player2Goal)
             {

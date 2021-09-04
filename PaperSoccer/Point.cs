@@ -1,7 +1,4 @@
-﻿using PaperSoccer.GameSettings;
-using System;
-
-namespace PaperSoccer
+﻿namespace PaperSoccer
 {
     public partial class BoardClass
     {
@@ -17,6 +14,7 @@ namespace PaperSoccer
             private BoardSettings.BoardPoint type;
 
             public new BoardSettings.BoardPoint GetType() => type;
+
             public BoardSettings.BoardPoint SetType(BoardSettings.BoardPoint boardPoint) => type = boardPoint;
 
             /// <summary>
@@ -38,6 +36,6 @@ namespace PaperSoccer
                 SetXY(x, y);
                 type = pt;
             }
-        }        
+        }
     }
 }

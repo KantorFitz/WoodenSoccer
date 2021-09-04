@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PaperSoccer
+﻿namespace PaperSoccer
 {
     public class Edge
     {
@@ -34,14 +31,17 @@ namespace PaperSoccer
         {
             return _startingPoint;
         }
+
         public Coord GetEndingPoint()
         {
             return _endingPoint;
         }
+
         public GameSettings.Player? GetOwner()
         {
             return _owner;
         }
+
         public new BoardSettings.BoardPoint? GetType()
         {
             return _type;
@@ -70,8 +70,6 @@ namespace PaperSoccer
         {
             return IsHorizontal() == false && IsVertical() == false;
         }
-
-
 
         /// <summary>
         /// Sprawdza czy obie krawędzie mają takie same współrzędne

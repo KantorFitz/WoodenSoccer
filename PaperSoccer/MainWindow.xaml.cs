@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PaperSoccer
 {
     public partial class MainWindow : Window
     {
-        
         private string _player1Name = "";
         private string _player2Name = "";
 
@@ -37,7 +27,6 @@ namespace PaperSoccer
                 btnStartGame.IsEnabled = true;
             }
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -141,7 +130,7 @@ namespace PaperSoccer
             }
             else if (clicked == btnW)
             {
-                foreach (var item in availableMoves) 
+                foreach (var item in availableMoves)
                 {
                     if (item.GetDirection() == BoardSettings.Direction.W)
                     {
@@ -254,30 +243,39 @@ namespace PaperSoccer
                 {
                     case BoardSettings.Direction.UNKNOWN:
                         break;
+
                     case BoardSettings.Direction.NW:
                         btnNW.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.N:
                         btnN.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.NE:
                         btnNE.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.W:
                         btnW.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.E:
                         btnE.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.SW:
                         btnSW.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.S:
                         btnS.IsEnabled = true;
                         break;
+
                     case BoardSettings.Direction.SE:
                         btnSE.IsEnabled = true;
                         break;
+
                     default:
                         throw new NotImplementedException();
                 }
@@ -311,54 +309,63 @@ namespace PaperSoccer
                         DirectionButton(btnNE, e);
                     }
                     break;
+
                 case Key.NumPad8:
                     if (btnN.IsEnabled)
                     {
                         DirectionButton(btnN, e);
-                    }                    
+                    }
                     break;
+
                 case Key.NumPad7:
                     if (btnNW.IsEnabled)
                     {
                         DirectionButton(btnNW, e);
                     }
                     break;
+
                 case Key.NumPad6:
                     if (btnE.IsEnabled)
                     {
                         DirectionButton(btnE, e);
                     }
                     break;
+
                 case Key.NumPad5:
                     if (btnStartGame.IsEnabled)
                     {
                         DirectionButton(btnStartGame, e);
                     }
                     break;
+
                 case Key.NumPad4:
                     if (btnW.IsEnabled)
                     {
                         DirectionButton(btnW, e);
                     }
                     break;
+
                 case Key.NumPad3:
                     if (btnSE.IsEnabled)
                     {
                         DirectionButton(btnSE, e);
                     }
                     break;
+
                 case Key.NumPad2:
                     if (btnS.IsEnabled)
                     {
                         DirectionButton(btnS, e);
                     }
                     break;
+
                 case Key.NumPad1:
                     if (btnSW.IsEnabled)
                     {
                         DirectionButton(btnSW, e);
                     }
                     break;
+
                 default:
                     break;
             }

@@ -6,6 +6,7 @@
         Started,
         Finished
     }
+
     public enum GameResult : ushort
     {
         Unknown,
@@ -33,6 +34,7 @@ namespace PaperSoccer.BoardSettings
         HasBounce,
         FinishedMove
     }
+
     public enum BoardPoint : ushort
     {
         Empty,
@@ -44,6 +46,7 @@ namespace PaperSoccer.BoardSettings
         OldBall,
         Ball
     }
+
     public enum Direction : int
     {
         UNKNOWN = -1,
