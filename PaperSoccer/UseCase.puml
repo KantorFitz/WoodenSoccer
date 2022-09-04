@@ -1,0 +1,17 @@
+﻿@startuml
+'https://plantuml.com/use-case-diagram
+
+(Wykonanie ruchu) as move
+:Gracz: as user
+:Przeciwnik: as opp
+(Wybór rozmiaru\nplanszy) as size
+(Zwycięstwo) as win
+user .. size
+opp .. size
+user -> move
+opp -> move
+user ---> win
+opp ---> win
+move -> win
+
+@enduml
