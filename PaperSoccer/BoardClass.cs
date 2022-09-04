@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using static PaperSoccer.BoardSettings.Direction;
 
 namespace PaperSoccer
 {
     public partial class BoardClass
     {
+        public Brush Player1Color { get; set; }
+        public Brush Player2Color { get; set; }
+        
         /// <summary>
         /// Wysokość i szerokość planszy
         /// </summary>
@@ -44,19 +49,19 @@ namespace PaperSoccer
         public void AddNewPlayerMove(Edge move)
         {
             _allPlayerMoves.Add(new());
-            int x1 = move.GetStartingPoint().GetX();
-            int x2 = move.GetEndingPoint().GetX();
-            int y1 = move.GetStartingPoint().GetY();
-            int y2 = move.GetEndingPoint().GetY();
+            var x1 = move.GetStartingPoint().GetX();
+            var x2 = move.GetEndingPoint().GetX();
+            var y1 = move.GetStartingPoint().GetY();
+            var y2 = move.GetEndingPoint().GetY();
             _allPlayerMoves[^1].Add(new Edge(new Coord(x1, y1), new Coord(x2, y2))); //Ugly workaround
         }
 
         public void AddCurrentPlayerMove(Edge move)
         {
-            int x1 = move.GetStartingPoint().GetX();
-            int x2 = move.GetEndingPoint().GetX();
-            int y1 = move.GetStartingPoint().GetY();
-            int y2 = move.GetEndingPoint().GetY();
+            var x1 = move.GetStartingPoint().GetX();
+            var x2 = move.GetEndingPoint().GetX();
+            var y1 = move.GetStartingPoint().GetY();
+            var y2 = move.GetEndingPoint().GetY();
             _allPlayerMoves[^1].Add(new Edge(new Coord(x1, y1), new Coord(x2, y2))); // same here
         }
 
@@ -154,20 +159,20 @@ namespace PaperSoccer
             HasMove = BoardSettings.PlayerState.HasMove;
 
             // Wypełniamy całe boisko polem outer; -- warstwa pierwsza
-            for (int x = 0; x < PlaygroundWidth; x++)
+            for (var x = 0; x < PlaygroundWidth; x++)
             {
                 _playground.Add(new List<Point>());
                 var pgx = _playground[x];
-                for (int y = 0; y < PlaygroundHeight; y++)
+                for (var y = 0; y < PlaygroundHeight; y++)
                 {
                     pgx.Add(new Point(x, y, BoardSettings.BoardPoint.Outer));
                 }
             }
 
             // Wypełniamy obramowanie boiska polem Border; -- warstwa druga
-            for (int x = 0; x < PlaygroundWidth; x++)
+            for (var x = 0; x < PlaygroundWidth; x++)
             {
-                for (int y = 0; y < PlaygroundHeight; y++)
+                for (var y = 0; y < PlaygroundHeight; y++)
                 {
                     if (((x == 0) || (x == PlaygroundWidth - 1)) && y > 0 && y < PlaygroundHeight - 1)
                     {
@@ -181,16 +186,16 @@ namespace PaperSoccer
             }
 
             // Wypełniamy środek boiska polem Empty -- warstwa trzecia
-            for (int x = 1; x < PlaygroundWidth - 1; x++)
+            for (var x = 1; x < PlaygroundWidth - 1; x++)
             {
-                for (int y = 2; y < PlaygroundHeight - 2; y++)
+                for (var y = 2; y < PlaygroundHeight - 2; y++)
                 {
                     _playground[x][y].SetType(BoardSettings.BoardPoint.Empty);
                 }
             }
 
             // Wypełniamy punkty bramki polem Goal i usuwamy jeden punkt w środku bramki -- warstwa czwarta
-            for (int i = -1; i < 2; i++)
+            for (var i = -1; i < 2; i++)
             {
                 _playground[HalfWidth + i][0].SetType(BoardSettings.BoardPoint.Player1Goal);
                 _playground[HalfWidth + i][PlaygroundHeight - 1].SetType(BoardSettings.BoardPoint.Player2Goal);
@@ -211,9 +216,9 @@ namespace PaperSoccer
         {
             List<Point> neighbours = new();
 
-            for (int x = -1; x < 2; x++)
+            for (var x = -1; x < 2; x++)
             {
-                for (int y = -1; y < 2; y++)
+                for (var y = -1; y < 2; y++)
                 {
                     if (x == 0 && y == 0)
                     {
@@ -242,12 +247,12 @@ namespace PaperSoccer
             List<Edge> result = new();
 
             // Ta pętla realizuje iteracje poziome
-            for (int y = 0; y < PlaygroundHeight; y++)
+            for (var y = 0; y < PlaygroundHeight; y++)
             {
-                for (int x = 0; x < PlaygroundWidth - 1; x++)
+                for (var x = 0; x < PlaygroundWidth - 1; x++)
                 {
-                    BoardSettings.BoardPoint p_ = _playground[x][y].GetType();
-                    BoardSettings.BoardPoint _p = _playground[x + 1][y].GetType();
+                    var p_ = _playground[x][y].GetType();
+                    var _p = _playground[x + 1][y].GetType();
 
                     if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
                     {
@@ -277,12 +282,12 @@ namespace PaperSoccer
             }
 
             // Ta pętla realizuje iteracje pionowe
-            for (int x = 0; x < PlaygroundWidth; x++)
+            for (var x = 0; x < PlaygroundWidth; x++)
             {
-                for (int y = 0; y < PlaygroundHeight - 1; y++)
+                for (var y = 0; y < PlaygroundHeight - 1; y++)
                 {
-                    BoardSettings.BoardPoint p_ = _playground[x][y].GetType();
-                    BoardSettings.BoardPoint _p = _playground[x][y + 1].GetType();
+                    var p_ = _playground[x][y].GetType();
+                    var _p = _playground[x][y + 1].GetType();
 
                     if (p_ == BoardSettings.BoardPoint.Outer || _p == BoardSettings.BoardPoint.Outer)
                     {
@@ -347,7 +352,7 @@ namespace PaperSoccer
             List<Edge> result = new();
             foreach (var apne in GetAllPossibleNeighbourEdges(xy))
             {
-                bool found = false;
+                var found = false;
                 foreach (var list in _allPlayerMoves)
                 {
                     foreach (var playerEdge in list)
@@ -360,8 +365,8 @@ namespace PaperSoccer
                 }
                 if (found == false)
                 {
-                    Point pointStart = _playground[apne.GetStartingPoint().GetX()][apne.GetStartingPoint().GetY()];
-                    Point pointEnd = _playground[apne.GetEndingPoint().GetX()][apne.GetEndingPoint().GetY()];
+                    var pointStart = _playground[apne.GetStartingPoint().GetX()][apne.GetStartingPoint().GetY()];
+                    var pointEnd = _playground[apne.GetEndingPoint().GetX()][apne.GetEndingPoint().GetY()];
 
                     //Jeśli któryś z punktów jest spoza boiska
                     if (pointStart.GetType() == BoardSettings.BoardPoint.Outer ||
@@ -463,12 +468,12 @@ namespace PaperSoccer
                         break;
 
                     case BoardSettings.BoardPoint.Player1Goal:
-                        line.Stroke = Brushes.Red;
+                        line.Stroke = Player1Color;
                         line.StrokeThickness = 3;
                         break;
 
                     case BoardSettings.BoardPoint.Player2Goal:
-                        line.Stroke = Brushes.Blue;
+                        line.Stroke = Player2Color;
                         line.StrokeThickness = 3;
                         break;
 
@@ -490,25 +495,25 @@ namespace PaperSoccer
                 canvas.Children.Add(line);
             }
 
-            for (int index = 0; index < _allPlayerMoves.Count; index++)
+            for (var index = 0; index < _allPlayerMoves.Count; index++)
             {
-                foreach (Edge item in _allPlayerMoves[index])
+                foreach (var item in _allPlayerMoves[index])
                 {
                     Line line = new()
                     {
-                        Stroke = (index % 2 == 0) ? Brushes.Red : Brushes.Blue
+                        Stroke = (index % 2 == 0) ? Player1Color : Player2Color,
+                        X1 = item.GetStartingPoint().GetX() * space,
+                        X2 = item.GetEndingPoint().GetX() * space,
+                        Y1 = item.GetStartingPoint().GetY() * space,
+                        Y2 = item.GetEndingPoint().GetY() * space
                     };
-                    line.X1 = item.GetStartingPoint().GetX() * space;
-                    line.X2 = item.GetEndingPoint().GetX() * space;
-                    line.Y1 = item.GetStartingPoint().GetY() * space;
-                    line.Y2 = item.GetEndingPoint().GetY() * space;
                     canvas.Children.Add(line);
                 }
             }
             //TODO Dopracuj rysowanie
 
             var ell = new Ellipse();
-            ell.Stroke = (_allPlayerMoves.Count == 0) ? Brushes.Red : (canvas.Children[^1] as Line).Stroke;
+            ell.Stroke = (_allPlayerMoves.Count == 0) ? Player1Color : (canvas.Children[^1] as Line).Stroke;
             ell.Width = 10;
             ell.Height = 10;
             canvas.Children.Add(ell);
@@ -522,118 +527,64 @@ namespace PaperSoccer
         /// <param name="direction">Kierunek</param>
         public void MoveBallInDirection(BoardSettings.Direction direction)
         {
-            int x = 0;
-            int y = 0;
-            switch (direction)
+            var (x, y) = direction switch
             {
-                case BoardSettings.Direction.UNKNOWN:
-                    break;
-
-                case BoardSettings.Direction.NW:
-                    x = -1;
-                    y = -1;
-                    break;
-
-                case BoardSettings.Direction.N:
-                    x = 0;
-                    y = -1;
-                    break;
-
-                case BoardSettings.Direction.NE:
-                    x = 1;
-                    y = -1;
-                    break;
-
-                case BoardSettings.Direction.W:
-                    x = -1;
-                    y = 0;
-                    break;
-
-                case BoardSettings.Direction.E:
-                    x = 1;
-                    y = 0;
-                    break;
-
-                case BoardSettings.Direction.SW:
-                    x = -1;
-                    y = 1;
-                    break;
-
-                case BoardSettings.Direction.S:
-                    x = 0;
-                    y = 1;
-                    break;
-
-                case BoardSettings.Direction.SE:
-                    x = 1;
-                    y = 1;
-                    break;
-
-                default:
-                    break;
-            }
+                NW => (-1, -1),
+                N => (0, -1),
+                NE => (1, -1),
+                W => (-1, 0),
+                E => (1, 0),
+                SW => (-1, 1),
+                S => (0, 1),
+                SE => (1, 1),
+                _ => (0, 0)
+            };
 
             _ball.SetXY(_ball.GetX() + x, _ball.GetY() + y);
             HasMove = BoardSettings.PlayerState.HasMove;
 
-            bool isStart = false;
-            bool isEnd = false;
+            var isStart = false;
+            var isEnd = false;
 
             // Ta pętla sprawdza czy koordynaty piłki są na łączeniu krawędzi
-            foreach (var list in _allPlayerMoves)
+            foreach (var item in _allPlayerMoves.SelectMany(list => list))
             {
-                foreach (var item in list)
+                if (item.GetEndingPoint().Equals(_ball))
                 {
-                    if (item.GetEndingPoint().Equals(_ball))
-                    {
-                        isStart = true;
-                        continue;
-                    }
-                    if (item.GetStartingPoint().Equals(_ball))
-                    {
-                        isEnd = true;
-                        continue;
-                    }
+                    isStart = true;
+                    continue;
+                }
+                if (item.GetStartingPoint().Equals(_ball))
+                {
+                    isEnd = true;
                 }
             }
-            if (isEnd == true && isStart == true)
-            {
+
+            if (isEnd && isStart)
                 HasMove = BoardSettings.PlayerState.HasBounce;
-            }
             else
-            {
                 HasMove = BoardSettings.PlayerState.HasMove;
-            }
 
             // Jeżeli piłka jest na granicy boiska, może się odbić
             if (_playground[_ball.GetX()][_ball.GetY()].GetType() == BoardSettings.BoardPoint.Border)
-            {
                 HasMove = BoardSettings.PlayerState.HasBounce;
-            }
 
-            var LastPointType = _playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][_allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType();
+            var lastPointType =
+                _playground[_allPlayerMoves[^1][^1].GetEndingPoint().GetX()][
+                    _allPlayerMoves[^1][^1].GetEndingPoint().GetY()].GetType();
 
-            if (LastPointType == BoardSettings.BoardPoint.Player1Goal)
+            switch (lastPointType)
             {
-                if (GetCurrentPlayer() == GameSettings.Player.Player1)
-                {
+                case BoardSettings.BoardPoint.Player1Goal when GetCurrentPlayer() == GameSettings.Player.Player1:
                     GameResult = GameSettings.GameResult.Player2Won;
-                }
-                else
-                {
+                    break;
+                case BoardSettings.BoardPoint.Player1Goal:
+                case BoardSettings.BoardPoint.Player2Goal when GetCurrentPlayer() == GameSettings.Player.Player1:
                     GameResult = GameSettings.GameResult.Player1Won;
-                }
-            }
-            if (LastPointType == BoardSettings.BoardPoint.Player2Goal)
-            {
-                if (GetCurrentPlayer() == GameSettings.Player.Player1)
-                {
-                    GameResult = GameSettings.GameResult.Player1Won;
-                }
-                else
-                {
+                    break;
+                case BoardSettings.BoardPoint.Player2Goal:
                     GameResult = GameSettings.GameResult.Player2Won;
-                }
+                    break;
             }
         }
     }

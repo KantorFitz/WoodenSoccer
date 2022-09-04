@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using PaperSoccer.Extensions;
 
 namespace PaperSoccer
 {
@@ -21,6 +22,8 @@ namespace PaperSoccer
         public MainWindow()
         {
             InitializeComponent();
+            cbPlayer1.FillWithColors();
+            cbPlayer2.FillWithColors();
             cbBoardSize.SelectedIndex = 0;
             if (_gameState != GameSettings.GameState.Started && _gameState != GameSettings.GameState.Finished)
             {
@@ -28,29 +31,19 @@ namespace PaperSoccer
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _board.Init(10, 15);
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            _board.Draw(ref cnvPaint);
-        }
-
         private void cbBoardSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int size = (sender as ComboBox).SelectedIndex;
-            int width = 6 + (2 * size);
-            int height = 10 + (2 * size);
+            var size = cbBoardSize.SelectedIndex;
+            var width = 6 + (2 * size);
+            var height = 10 + (2 * size);
             _board.Init(width, height);
             _board.Draw(ref cnvPaint);
         }
 
         private void DirectionButton(object sender, RoutedEventArgs e)
         {
-            Button clicked = sender as Button;
-            List<Edge> availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
+            var clicked = sender as Button;
+            var availableMoves = _board.GetAllUnoccupiedNeighbourEdges(_board.GetBallCoord());
 
             // Wyłączenie wszystkich przycisków
             foreach (var child in wpPanel.Children)
@@ -365,10 +358,29 @@ namespace PaperSoccer
                         DirectionButton(btnSW, e);
                     }
                     break;
-
-                default:
-                    break;
             }
+        }
+
+        private void Player1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var colorName = ((ComboBox)sender).SelectedValue.ToString();
+            // var brush = typeof(Brushes).GetProperties().FirstOrDefault(x => x.Name == colorName);
+
+            var newBrush = (SolidColorBrush)new BrushConverter().ConvertFromString(colorName);
+            _board.Player1Color = newBrush;
+            
+            cbBoardSize_SelectionChanged(default, default);
+        }
+
+        private void Player2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var colorName = ((ComboBox)sender).SelectedValue.ToString();
+            // var brush = typeof(Brushes).GetProperties().FirstOrDefault(x => x.Name == colorName);
+
+            var newBrush = (SolidColorBrush)new BrushConverter().ConvertFromString(colorName);
+            _board.Player2Color = newBrush;
+            
+            cbBoardSize_SelectionChanged(default, default);
         }
     }
 }

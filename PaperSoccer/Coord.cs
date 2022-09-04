@@ -18,30 +18,15 @@
             (_x, _y) = (x, y);
         }
 
-        public void SetXY(int x, int y)
-        {
-            (_x, _y) = (x, y);
-        }
+        public void SetXY(int x, int y) => (_x, _y) = (x, y);
 
-        public int GetX()
-        {
-            return _x;
-        }
+        public int GetX() => _x;
 
-        public void SetX(int x)
-        {
-            _x = x;
-        }
+        public void SetX(int x) => _x = x;
 
-        public int GetY()
-        {
-            return _y;
-        }
+        public int GetY() => _y;
 
-        public void SetY(int y)
-        {
-            _y = y;
-        }
+        public void SetY(int y) => _y = y;
 
         /// <summary>
         /// Porównuje koordynaty

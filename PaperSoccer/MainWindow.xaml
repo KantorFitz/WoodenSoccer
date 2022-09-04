@@ -17,7 +17,8 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Canvas x:Name="cnvPaint" Grid.Row="1" Grid.ColumnSpan="2" Margin="19,3,0,0" />
-        <StackPanel x:Name="pnlBoardSettings" Grid.Column="2" HorizontalAlignment="Left" Height="auto" Margin="0,19,0,0" VerticalAlignment="Top" Grid.RowSpan="2">
+        <StackPanel x:Name="pnlBoardSettings" Grid.Column="2" HorizontalAlignment="Left" Height="auto"
+                    Margin="0,19,0,0" VerticalAlignment="Top" Grid.RowSpan="2">
             <Label Content="Wybierz wielkość planszy" Height="auto" />
             <ComboBox x:Name="cbBoardSize" Width="auto" SelectionChanged="cbBoardSize_SelectionChanged">
                 <ComboBoxItem Content="Małe" />
@@ -28,18 +29,33 @@
                 <ComboBoxItem Content="Mega" />
                 <ComboBoxItem Content="Maraton" />
             </ComboBox>
+
+            <Label Content="Kolor gracza pierwszego" />
+            <ComboBox Name="cbPlayer1" SelectionChanged="Player1_OnSelectionChanged" SelectedIndex="0"></ComboBox>
+
+            <Label Content="Kolor gracza pierwszego" />
+            <ComboBox Name="cbPlayer2" SelectionChanged="Player2_OnSelectionChanged" SelectedIndex="1"></ComboBox>
         </StackPanel>
-        <WrapPanel x:Name="wpPanel"  IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Height="150" Width="150" Margin="94,209,0,0" Grid.Row="1" VerticalAlignment="Top">
+        <WrapPanel x:Name="wpPanel" IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Height="300"
+                   Width="150" Margin="94,209,0,0" Grid.Row="1" VerticalAlignment="Top">
             <Button x:Name="btnNW" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">\</Button>
             <Button x:Name="btnN" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">|</Button>
             <Button x:Name="btnNE" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">/</Button>
             <Button x:Name="btnW" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">--</Button>
-            <Button x:Name="btnStartGame"  Width="50" Height="50" Click="DirectionButton">Start</Button>
+            <Button x:Name="btnStartGame" Width="50" Height="50" Click="DirectionButton">Start</Button>
             <Button x:Name="btnE" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">--</Button>
             <Button x:Name="btnSW" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">/</Button>
             <Button x:Name="btnS" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">|</Button>
             <Button x:Name="btnSE" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">\</Button>
+
+            <StackPanel Height="30"></StackPanel>
+            
+            <Button Name="btnShowStats" Content="Pokaż statystyki"></Button>
+
         </WrapPanel>
-        <Label x:Name="lblWhoWon" Content="Gratulacje, gracz Czerwony zwyciężył!" Grid.Column="2" HorizontalAlignment="Left" Margin="10,83,0,0" Grid.Row="1" VerticalAlignment="Top" Width="371" Height="43" FontWeight="Bold" FontSize="20" Visibility="Hidden" />
+        <Label x:Name="lblWhoWon" Content="Gratulacje, gracz Czerwony zwyciężył!" Grid.Column="2"
+               HorizontalAlignment="Left" Margin="10,83,0,0" Grid.Row="1" VerticalAlignment="Top" Width="371"
+               Height="43" FontWeight="Bold" FontSize="20" Visibility="Hidden" />
+
     </Grid>
 </Window>
