@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaperSoccer"
         mc:Ignorable="d"
+        MinHeight="500"
         Title="Piłkarzyki" Height="450" Width="800" KeyUp="Window_KeyUp">
     <Grid>
         <Grid.RowDefinitions>
@@ -48,9 +49,8 @@
             <Button x:Name="btnS" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">|</Button>
             <Button x:Name="btnSE" Height="50" Width="50" Click="DirectionButton" IsEnabled="False">\</Button>
 
-            <StackPanel Height="30"></StackPanel>
-            
-            <Button Name="btnShowStats" Content="Pokaż statystyki"></Button>
+            <Button Name="btnShowStats" Content="Pokaż statystyki" Click="BtnShowStats_OnClick"></Button>
+            <Button Name="btnShowMoves" Content="Pokaż ruchy graczy" Click="BtnShowMoves_OnClick"></Button>
 
         </WrapPanel>
         <Label x:Name="lblWhoWon" Content="Gratulacje, gracz Czerwony zwyciężył!" Grid.Column="2"

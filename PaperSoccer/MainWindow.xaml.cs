@@ -7,13 +7,16 @@ using PaperSoccer.Extensions;
 
 namespace PaperSoccer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private string _player1Name = "";
         private string _player2Name = "";
 
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
+
+        private StatistiscWindow _statisticsWindow = new ();
+        private PlayerMovesWindow _playerMovesWindow = new ();
 
         private BoardClass _board = new();
         private GameSettings.GameState _gameState = GameSettings.GameState.NotStarted;
@@ -381,6 +384,16 @@ namespace PaperSoccer
             _board.Player2Color = newBrush;
             
             cbBoardSize_SelectionChanged(default, default);
+        }
+
+        private void BtnShowStats_OnClick(object sender, RoutedEventArgs e)
+        {
+            _statisticsWindow.Show();
+        }
+
+        private void BtnShowMoves_OnClick(object sender, RoutedEventArgs e)
+        {
+            _playerMovesWindow.Show();
         }
     }
 }
